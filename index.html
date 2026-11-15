@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0a0a0a" />
+
+  <title>Qasim Akram | Full Stack Developer & AI Engineer</title>
+  <meta name="description" content="Qasim Akram is a Full Stack Developer and AI Engineer from Pakistan. Specializing in React, ASP.NET, Django, Node.js, and AI-powered apps. Open to internships, jobs, and freelance work in Lahore, Islamabad, Karachi and remotely." />
+  <meta name="keywords" content="Qasim Akram, Muhammad Qasim Akram, M Qasim Akram, software developer Pakistan, full stack developer Pakistan, web developer Pakistan, AI engineer Pakistan, React developer Pakistan, ASP.NET developer Pakistan, Django developer Pakistan, Node.js developer Pakistan, JavaScript developer Pakistan, Python developer Pakistan, software engineer Pakistan, web developer Lahore, software developer Lahore, developer Islamabad, web developer Karachi, hire developer Pakistan, freelance developer Pakistan, software house Pakistan, internship Pakistan software, junior developer Pakistan, CS student Pakistan, computer science Pakistan, IUB developer, Islamia University Bahawalpur" />
+  <meta name="author" content="Muhammad Qasim Akram" />
+  <meta name="robots" content="index, follow" />
+ 
+
+  <meta property="og:type" content="website" />
+  
+  <meta property="og:title" content="Qasim Akram | Full Stack Developer & AI Engineer in Pakistan" />
+  <meta property="og:description" content="Full Stack Developer and AI Engineer from Pakistan, working with React, ASP.NET, Django, Node.js, and AI tools." />
+ 
+  <meta property="og:site_name" content="Qasim Akram" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Qasim Akram | Full Stack Developer & AI Engineer in Pakistan" />
+  <meta name="twitter:description" content="Full Stack Developer and AI Engineer from Pakistan, working with React, ASP.NET, Django, Node.js, and AI tools." />
+
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Muhammad Qasim Akram",
+    "alternateName": ["Qasim Akram", "M Qasim Akram"],
+    "url": ",
+    "image": ","
+    "email": "qasimakram46@hotmail.com",
+    "jobTitle": "Full Stack Developer & AI Engineer",
+    "description": "Full Stack Developer and AI Engineer from Pakistan specializing in React, ASP.NET, Django, Node.js, WebSockets, and computer vision systems.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Bahawalpur",
+      "addressRegion": "Punjab",
+      "addressCountry": "PK"
+    },
+    "sameAs": [
+      "https://github.com/Muhammad-Qasim-Akram",
+      "https://linkedin.com/in/qasimakram"
+    ],
+    "knowsAbout": [
+      "React", "ASP.NET", "Node.js", "Django", "JavaScript", "Python",
+      "WebSockets", "REST APIs", "Computer Vision", "YOLOv8",
+      "Machine Learning", "LLM Integration", "Full Stack Development",
+      "AI Engineering", "Redis", "PostgreSQL", "MongoDB"
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="preload" as="image" href="img/profile.webp" type="image/webp" fetchpriority="high">
+  <link rel="icon" type="image/svg+xml" href="img/favicon.svg" />
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="cases-home.css">
+  <meta name="google-site-verification" content="dL1UoYYp8x-xpIY9LGcvwdt-tdwn-hxmc0gNem002Vs" />
+
+  <script defer src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script defer>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.emailjs) emailjs.init("yCgwIWXoWe_klsqNy");
+    });
+  </script>
+</head>
+
+<body>
+
+  <div class="ambient-backdrop" id="ambientBackdrop" aria-hidden="true">
+    <span class="ambient-blob ambient-blob-one"></span>
+    <span class="ambient-blob ambient-blob-two"></span>
+    <span class="ambient-blob ambient-blob-three"></span>
+  </div>
+
+  <div id="loader">
+    <div class="loader-row"><span class="loader-word">Qasim</span></div>
+    <div class="loader-row"><span class="loader-word" style="animation-delay:.14s">Akram</span></div>
+    <div class="loader-row"><span class="loader-word"
+        style="animation-delay:.26s;color:rgba(255,255,255,.3);font-size:clamp(1rem,2.5vw,2rem)">Full Stack
+        Developer <br> AI Engineer</span>
+    </div>
+    <span class="loader-progress" id="loaderProgress" aria-label="Loading complete">100%</span>
+  </div>
+
+  <nav id="navbar" class="glass">
+    <span class="nav-name">Qasim Akram</span>
+    <div class="nav-links" id="navLinks">
+      <span class="nav-indicator" aria-hidden="true"></span>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a> 
+      <a href="#stack">Stack</a>
+      <a href="#services">Services</a>
+    </div>
+    <div class="nav-right">
+      <a href="mailto:qasimakram46@hotmail.com?subject=Hiring Inquiry&body=Hi Qasim," class="btn-nav">Hire Me</a>
+      <button class="nav-ham" id="navHam" aria-label="Open menu" aria-controls="mobileMenu"
+        aria-expanded="false">&#9776;</button>
+    </div>
+  </nav>
+
+  <div class="nav-mobile-menu glass" id="mobileMenu" aria-hidden="true" inert>
+    <a href="#about">About</a>
+    <div class="nav-mobile-divider"></div>
+    <a href="#projects">Projects</a>
+    <div class="nav-mobile-divider"></div>
+    <a href="#stack">Stack</a>
+    <div class="nav-mobile-divider"></div>
+    <a href="#services">Services</a>
+    <div class="nav-mobile-divider"></div>
+    <a href="#contact">Contact / Hire Me</a>
+  </div>
+
+  <section id="hero">
+    <div class="hero-stage">
+    <div class="hero-bg-word" id="bgWord">DEVELOPER</div>
+    <div class="hero-stamp hero-stamp-right">/BUILDING SINCE 2023</div>
+
+    <div class="hero-left">
+      <h1 class="hero-hey">
+        <span><span class="word">Hey!</span></span>
+        <span><span class="word">I'm</span></span>
+        <span><span class="word-name">Qasim.</span></span>
+      </h1>
+      <p class="hero-tagline">Full Stack Developer & AI Engineer — building web apps and practical AI tools.</p>
+      <div class="scroll-hint">
+        <span class="scroll-line"></span>
+        <span>Scroll to explore</span>
+      </div>
+    </div>
+
+    <div class="hero-photo-wrap">
+      <div class="flip-card" id="flipCard">
+        <div class="flip-rotation" id="flipRotation">
+          <div class="flip-front">
+            <img src="img/profile.webp"
+              alt="Qasim Akram — Full Stack Developer"
+              width="480" height="600"
+              fetchpriority="high" decoding="async" />
+            <div class="photo-badge">
+              <span class="badge-name">Qasim Akram</span>
+              <span class="badge-avail"><span class="avail-dot"></span>Available</span>
+            </div>
+          </div>
+          <div class="flip-back">
+            <div class="back-name">Qasim<br>Akram</div>
+            <div class="back-role">Full Stack · AI · Engineer</div>
+            <div class="back-div"></div>
+            <div class="back-links">
+              <a href="https://github.com/Muhammad-Qasim-Akram" target="_blank" rel="noopener" class="back-link">GitHub <span>↗</span></a>
+              <a href="https://linkedin.com/in/qasimakram" target="_blank" rel="noopener" class="back-link">LinkedIn <span>↗</span></a>
+              <a href="mailto:qasimakram46@hotmail.com" class="back-link">Email <span>↗</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flip-cue" id="flipCue">
+        <span>Scroll to flip</span><span class="cue-arr">↓</span>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <p class="hero-bio">
+        I'm a <strong>Full Stack Developer & AI Engineer</strong> studying computer science and building projects across web development and AI.<br><br>
+        I work with React, ASP.NET, Django, and Node.js, and enjoy taking an idea from the first sketch through to a working app.
+      </p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn-primary magnetic">View Work ↗</a>
+        <a href="#contact" class="btn-outline magnetic">Get in Touch</a>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <div class="ticker-wrap">
+    <div class="ticker-track">
+      <span class="ticker-item"><span class="t-dot"></span>React.js</span>
+      <span class="ticker-item"><span class="t-dot"></span>ASP.NET</span>
+      <span class="ticker-item"><span class="t-dot"></span>Django</span>
+      <span class="ticker-item"><span class="t-dot"></span>Node.js</span>
+      <span class="ticker-item"><span class="t-dot"></span>TypeScript</span>
+      <span class="ticker-item"><span class="t-dot"></span>Python</span>
+      <span class="ticker-item"><span class="t-dot"></span>YOLOv8</span>
+      <span class="ticker-item"><span class="t-dot"></span>LLM APIs</span>
+      <span class="ticker-item"><span class="t-dot"></span>WebSockets</span>
+      <span class="ticker-item"><span class="t-dot"></span>PostgreSQL</span>
+      <span class="ticker-item"><span class="t-dot"></span>MongoDB</span>
+      <span class="ticker-item"><span class="t-dot"></span>Redis</span>
+      <span class="ticker-item"><span class="t-dot"></span>Azure</span>
+      <span class="ticker-item"><span class="t-dot"></span>CI/CD</span>
+      <span class="ticker-item"><span class="t-dot"></span>React.js</span>
+      <span class="ticker-item"><span class="t-dot"></span>ASP.NET</span>
+      <span class="ticker-item"><span class="t-dot"></span>Django</span>
+      <span class="ticker-item"><span class="t-dot"></span>Node.js</span>
+      <span class="ticker-item"><span class="t-dot"></span>TypeScript</span>
+      <span class="ticker-item"><span class="t-dot"></span>Python</span>
+      <span class="ticker-item"><span class="t-dot"></span>YOLOv8</span>
+      <span class="ticker-item"><span class="t-dot"></span>LLM APIs</span>
+      <span class="ticker-item"><span class="t-dot"></span>WebSockets</span>
+      <span class="ticker-item"><span class="t-dot"></span>PostgreSQL</span>
+      <span class="ticker-item"><span class="t-dot"></span>MongoDB</span>
+      <span class="ticker-item"><span class="t-dot"></span>Redis</span>
+      <span class="ticker-item"><span class="t-dot"></span>Azure</span>
+      <span class="ticker-item"><span class="t-dot"></span>CI/CD</span>
+    </div>
+  </div>
+
+  <div class="section" id="about">
+    <div class="sec-label">About me</div>
+    <div class="about-grid">
+      <div>
+        <h2 class="about-h sr sr-l"><span class="qpass3-heading-mask"><span>I like <span
+              class="about-h-accent">solving</span></span></span><br><span
+            class="qpass3-heading-mask"><span><span class="about-h-accent">problems</span> with <span
+                class="about-h-accent">code.</span></span></span></h2>
+        <div class="stats sr sr-l d2">
+          <div class="stat">
+            <div class="sn">5+</div>
+            <div class="sl">Deployed Projects</div>
+          </div>
+          <div class="stat">
+            <div class="sn">15+</div>
+            <div class="sl">GitHub Repos</div>
+          </div>
+          <div class="stat">
+            <div class="sn">5</div>
+            <div class="sl">Tech Domains</div>
+          </div>
+          <div class="stat">
+            <div class="sn">2+</div>
+            <div class="sl">Years Building</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="about-p sr sr-r">Most of my projects start with a practical problem. I've built real-time Django Channels, a small e-commerce storefront, and apps that bring AI into the experience.</p>
+        <p class="about-p sr sr-r d1">EyeSpy is one I'm especially proud of: it uses a live camera feed and YOLOv8 to detect objects, then gives audio feedback. I wanted to explore how computer vision could be useful beyond a screen.</p>
+        <p class="about-p sr sr-r d2">I'm currently studying computer science and working on SmartSpend, an expense-tracking backend built with ASP.NET and PostgreSQL.</p>
+        <div class="sr sr-r d3" style="margin-top:26px;">
+          <a href="img/Muhammad_Qasim_Akram_Resume.pdf"
+            class="btn-primary" target="_blank" rel="noopener">Download Resume ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="projects" style="padding-top:0">
+    <div class="current-project sr">
+      <div class="current-project-copy">
+        <div class="current-project-status"><span class="current-project-dot"></span>Currently building</div>
+        <h3 class="current-project-title">SmartSpend</h3>
+        <p class="current-project-desc">I'm building the backend for an expense-tracking app, with categorized spending
+          and budgets. Built with ASP.NET and PostgreSQL.</p>
+        <div class="proj-tags"><span>ASP.NET</span><span>PostgreSQL</span><span>Backend</span></div>
+      </div>
+      <a class="current-project-link" href="https://github.com/Muhammad-Qasim-Akram/Smartspend.Api"
+        target="_blank" rel="noopener noreferrer">View the backend on GitHub <span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="proj-head">
+      <div>
+        <div class="sec-label">Selected Work</div>
+          
+        <h2 class="proj-h sr sr-l"><span class="qpass3-heading-mask"><span>Projects that</span></span><br><span
+            class="qpass3-heading-mask"><span>I've been building.</span></span></h2>
+      </div>
+      <a href="https://github.com/Muhammad-Qasim-Akram" target="_blank" rel="noopener" class="btn-outline sr sr-r"
+        style="align-self:flex-end;">All on GitHub ↗</a>
+    </div>
+    <div class="case-grid">
+  <a href="case-chatroom.html" class="case-card glass sr">
+    <div class="case-thumb" aria-hidden="true">
+      <span class="case-badge">Case study 01</span>
+      <div class="case-plane"><i></i><i></i><i></i><i></i><i></i></div>
+    </div>
+    <div class="case-body">
+      <h3>ChatRoom, under the hood</h3>
+      <p>Follow one message through JWT-checked WebSockets, Django Channels, Redis fan-out and PostgreSQL. Orbit the architecture and break Redis to see what fails.</p>
+      <span class="case-go">Explore the system <b>&rarr;</b></span>
+    </div>
+  </a>
+  <a href="case-portfolio.html" class="case-card glass sr">
+    <div class="case-thumb" aria-hidden="true">
+      <span class="case-badge">Case study 02</span>
+      <div class="case-bars"><i style="--h:38%"></i><i style="--h:64%"></i><i style="--h:46%"></i><i style="--h:82%"></i><i style="--h:58%"></i><i style="--h:92%"></i><i style="--h:70%"></i></div>
+    </div>
+    <div class="case-body">
+      <h3>Glass, but fast</h3>
+      <p>How this portfolio stays smooth with blur and 3D tilt. Test frame cost live on your own device, and replay the hover bug that made cards shake.</p>
+      <span class="case-go">See the measurements <b>&rarr;</b></span>
+    </div>
+  </a>
+</div>
+    <div class="proj-grid">
+      <a href="https://chat-room-two-pi.vercel.app/" target="_blank" rel="noopener" class="proj-card glass sr">
+        <div class="proj-thumb">
+          <img class="proj-img-real"
+            src="img/chatroom.webp"
+            alt="ChatRoom screenshot"
+            width="1200" height="750"
+            loading="lazy" decoding="async" />
+          <div class="proj-img-overlay"></div>
+          <div class="proj-img-tint"></div>
+          <span class="proj-thumb-badge">React · Django · Redis</span>
+          <span class="proj-view-btn">View Live ↗</span>
+        </div>
+        <div class="proj-info">
+          <div class="proj-num">001</div>
+          <div class="proj-title">ChatRoom — Real-Time Chat App</div>
+          <p class="proj-desc">Users can register, create chat rooms, and exchange live messages using Django Channels, WebSockets, and Redis.
+          </p>
+          <div class="proj-foot">
+            <div class="proj-tags"><span>React</span><span>Django</span><span>WebSocket</span><span>Redis</span></div>
+            <span class="proj-lnk">Live <span class="proj-arrow">↗</span></span>
+          </div>
+        </div>
+      </a>
+      <a href="https://dev-chat-gilt.vercel.app/" target="_blank" rel="noopener" class="proj-card glass sr d1">
+        <div class="proj-thumb">
+          <img class="proj-img-real"
+            src="img/devchat.webp"
+            alt="DevChat screenshot"
+            width="1200" height="750"
+            loading="lazy" decoding="async" />
+          <div class="proj-img-overlay"></div>
+          <div class="proj-img-tint"></div>
+          <span class="proj-thumb-badge">React · Node.js · LLaMA 3</span>
+          <span class="proj-view-btn">View Live ↗</span>
+        </div>
+        <div class="proj-info">
+          <div class="proj-num">002</div>
+          <div class="proj-title">DevChat — AI Chat Assistant</div>
+          <p class="proj-desc">A developer chat assistant that keeps context between messages and streams replies, powered by LLaMA 3 through Ollama.</p>
+          <div class="proj-foot">
+            <div class="proj-tags"><span>React</span><span>Node.js</span><span>LLaMA 3</span></div>
+            <span class="proj-lnk">Live <span class="proj-arrow">↗</span></span>
+          </div>
+        </div>
+      </a>
+      <a href="https://github.com/Muhammad-Qasim-Akram/EyeSpy" target="_blank" rel="noopener" class="proj-card glass sr d2">
+        <div class="proj-thumb">
+          <div class="proj-eyespy-inner">
+            <span class="proj-eyespy-icon">👁️</span>
+            <span class="proj-eyespy-label">YOLOv8 · Computer Vision</span>
+          </div>
+          <div class="proj-img-overlay"
+            style="background:linear-gradient(180deg,rgba(0,0,0,0) 20%,rgba(0,0,0,.65) 100%);"></div>
+          <div class="proj-img-tint"></div>
+          <span class="proj-thumb-badge">Python · OpenCV · YOLOv8</span>
+          <span class="proj-view-btn">View GitHub ↗</span>
+        </div>
+        <div class="proj-info">
+          <div class="proj-num">003</div>
+          <div class="proj-title">EyeSpy — Blind Assistance System</div>
+          <p class="proj-desc">Detects objects from a live camera feed with YOLOv8 and gives audio feedback, designed to help make surroundings easier to navigate.
+          </p>
+          <div class="proj-foot">
+            <div class="proj-tags"><span>Python</span><span>OpenCV</span><span>YOLOv8</span></div>
+            <span class="proj-lnk">GitHub <span class="proj-arrow">↗</span></span>
+          </div>
+        </div>
+      </a>
+      <a href="https://qasim-ecommerce.azurewebsites.net/" target="_blank" rel="noopener" class="proj-card glass sr d3">
+        <div class="proj-thumb">
+          <img class="proj-img-real"
+            src="img/yourown.webp"
+            alt="YOUROWN E-Commerce screenshot"
+            width="1200" height="750"
+            loading="lazy" decoding="async" />
+          <div class="proj-img-overlay"></div>
+          <div class="proj-img-tint"></div>
+          <span class="proj-thumb-badge">React · Node.js · Azure</span>
+          <span class="proj-view-btn">View Live ↗</span>
+        </div>
+        <div class="proj-info">
+          <div class="proj-num">004</div>
+          <div class="proj-title">YOUROWN — E-Commerce Platform</div>
+          <p class="proj-desc">An e-commerce storefront with a shopping cart, JWT authentication, and order tracking, deployed on Azure with GitHub Actions CI/CD.
+          </p>
+          <div class="proj-foot">
+            <div class="proj-tags"><span>React</span><span>Node.js</span><span>MongoDB</span><span>Azure</span></div>
+            <span class="proj-lnk">Live <span class="proj-arrow">↗</span></span>
+          </div>
+        </div>
+      </a>
+      <a href="https://github.com/Muhammad-Qasim-Akram/Stock-Price-Prediction" target="_blank" rel="noopener"
+        class="proj-card glass sr d4" style="grid-column:span 2">
+        <div class="proj-thumb" style="aspect-ratio:32/9">
+          <img class="proj-img-real"
+            src="img/minimal-analysis.webp"
+            alt="Minimal Analysis screenshot"
+            width="1600" height="450"
+            loading="lazy" decoding="async" />
+          <div class="proj-img-overlay"></div>
+          <div class="proj-img-tint"></div>
+          <span class="proj-thumb-badge">Express.js · Groq · LLaMA</span>
+          <span class="proj-view-btn">View GitHub ↗</span>
+        </div>
+        <div class="proj-info">
+          <div class="proj-num">005</div>
+          <div class="proj-title">Minimal Analysis — AI Stock Predictor</div>
+          <p class="proj-desc">A single-page stock analysis app that combines live market data with LLaMA-generated insights through the Groq API.</p>
+          <div class="proj-foot">
+            <div class="proj-tags"><span>Express.js</span><span>Groq</span><span>LLaMA</span><span>JS</span></div>
+            <span class="proj-lnk">GitHub <span class="proj-arrow">↗</span></span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="section" id="stack" style="padding-top:20px">
+    <div class="sec-label">Tech Stack</div>
+    <div class="stack-grid glass sr">
+      <div class="sk">
+        <div class="sk-title">Frontend</div>
+        <div class="sk-tags"><span class="sk-tag">React.js</span><span class="sk-tag">JavaScript</span><span
+            class="sk-tag">TypeScript</span><span class="sk-tag">HTML5 & CSS3</span><span class="sk-tag">Tailwind
+            CSS</span></div>
+      </div>
+      <div class="sk">
+        <div class="sk-title">Backend</div>
+        <div class="sk-tags"><span class="sk-tag">ASP.NET</span><span class="sk-tag">Node.js</span><span
+            class="sk-tag">Django</span><span class="sk-tag">Express</span><span class="sk-tag">REST APIs</span><span class="sk-tag">WebSockets</span>
+        </div>
+      </div>
+      <div class="sk">
+        <div class="sk-title">Databases</div>
+        <div class="sk-tags"><span class="sk-tag">PostgreSQL</span><span class="sk-tag">MongoDB</span><span
+            class="sk-tag">MySQL</span><span class="sk-tag">Redis</span></div>
+      </div>
+      <div class="sk">
+        <div class="sk-title">AI & CV</div>
+        <div class="sk-tags"><span class="sk-tag">Python</span><span class="sk-tag">YOLOv8</span><span
+            class="sk-tag">OpenCV</span><span class="sk-tag">Groq / LLMs</span><span
+            class="sk-tag">scikit-learn</span></div>
+      </div>
+      <div class="sk">
+        <div class="sk-title">DevOps</div>
+        <div class="sk-tags"><span class="sk-tag">Git & GitHub</span><span class="sk-tag">Azure</span><span
+            class="sk-tag">Vercel</span><span class="sk-tag">Netlify</span><span class="sk-tag">GitHub Actions</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="services" style="padding-top:0">
+    <div class="sec-label">Services</div>
+    <div class="services-surface glass">
+      <div class="svc-row sr sr-l">
+        <div class="svc-sweep"></div><span class="svc-num">01</span><span class="svc-name">Full Stack Web
+          Development</span>
+        <div class="svc-chips"><span class="svc-chip">React</span><span class="svc-chip">ASP.NET</span><span
+            class="svc-chip">Node.js</span><span class="svc-chip">Django</span></div>
+      </div>
+      <div class="svc-row sr sr-l d1">
+        <div class="svc-sweep"></div><span class="svc-num">02</span><span class="svc-name">REST API Design &
+          Development</span>
+        <div class="svc-chips"><span class="svc-chip">Express</span><span class="svc-chip">Django REST</span><span
+            class="svc-chip">JWT</span></div>
+      </div>
+      <div class="svc-row sr sr-l d2">
+        <div class="svc-sweep"></div><span class="svc-num">03</span><span class="svc-name">Real-time Features</span>
+        <div class="svc-chips"><span class="svc-chip">WebSockets</span><span class="svc-chip">Django
+            Channels</span><span class="svc-chip">Redis</span></div>
+      </div>
+      <div class="svc-row sr sr-l d3">
+        <div class="svc-sweep"></div><span class="svc-num">04</span><span class="svc-name">AI & LLM Integration</span>
+        <div class="svc-chips"><span class="svc-chip">Python</span><span class="svc-chip">Groq</span><span
+            class="svc-chip">LLM APIs</span></div>
+      </div>
+      <div class="svc-row sr sr-l d4">
+        <div class="svc-sweep"></div><span class="svc-num">05</span><span class="svc-name">Deployment & CI/CD
+          Setup</span>
+        <div class="svc-chips"><span class="svc-chip">Azure</span><span class="svc-chip">Railway</span><span
+            class="svc-chip">Vercel</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="contact" style="padding-top:0">
+    <div class="contact-box glass sr">
+      <h2 class="contact-h">Let's build something <em><span class="qpass3-heading-mask"><span>together.</span></span></em></h2>
+      <p class="contact-sub">I'm looking for internships and junior developer roles, and I'm open to freelance projects and collaborations. If something here caught your eye, feel free to get in touch.</p>
+      <div class="contact-grid">
+        <div class="c-links">
+          <div class="c-link c-email-row magnetic">
+            <button type="button" class="qpass3-copy c-email-copy magnetic" id="qpass3-copy-email"
+              aria-label="Copy email address" title="Copy email address">Copy</button>
+              <a href="mailto:qasimakram46@hotmail.com" class="c-email-address"><span>qasimakram46@hotmail.com</span></a>
+          </div>
+          <a href="https://wa.me/923126442266" class="c-link magnetic" target="_blank"
+            rel="noopener noreferrer"><span>WhatsApp · +92 312 6442266</span><span>↗</span></a>
+          <a href="https://linkedin.com/in/qasimakram" target="_blank" rel="noopener"
+            class="c-link"><span>LinkedIn</span><span>↗</span></a>
+          <a href="https://github.com/Muhammad-Qasim-Akram" target="_blank" rel="noopener"
+            class="c-link"><span>GitHub</span><span>↗</span></a>
+          <a href="https://instagram.com/m_qasimakram" target="_blank" rel="noopener"
+            class="c-link"><span>Instagram</span><span>↗</span></a>
+          <a href="https://medium.com/@qasimakram" target="_blank" rel="noopener"
+            class="c-link"><span>Medium</span><span>↗</span></a>
+        </div>
+        <div>
+          <div>
+            <div class="fg">
+              <input type="text" id="from_name" placeholder="Your Name" required />
+            </div>
+            <div class="fg">
+              <input type="email" id="from_email" placeholder="Email Address" required />
+            </div>
+            <div class="fg">
+              <textarea id="message" placeholder="Your Message"></textarea>
+            </div>
+            <button type="button" class="btn-send" id="sendBtn" onclick="handleSubmit()">
+              <span id="btnText">Send Message →</span>
+              <span id="btnBar"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="qpass3-toast" id="qpass3-toast" role="status" aria-live="polite"></div>
+
+  <footer class="glass">
+    <div class="footer-wm">QASIM</div>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">Qasim Akram</div>
+        <div class="footer-sub">Full Stack Developer & AI Engineer<br>Based in Pakistan</div>
+      </div>
+      <div>
+        <div class="footer-ct">/Quick Links</div>
+        <div class="footer-links">
+          <a href="#about">About</a><a href="#stack">Stack</a>
+          <a href="#projects">Projects</a><a href="#services">Services</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-ct">/Contact</div>
+        <div class="footer-links">
+          <a href="mailto:qasimakram46@hotmail.com">qasimakram46@hotmail.com</a>
+          <a href="https://github.com/Muhammad-Qasim-Akram" target="_blank" rel="noopener">github.com/Muhammad-Qasim-Akram</a>
+          <a href="https://linkedin.com/in/qasimakram" target="_blank" rel="noopener">linkedin.com/in/qasimakram</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bot">
+      <span class="footer-copy">© 2025 Qasim Akram. All rights reserved.</span>
+      <a href="#hero" class="back-top">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <div class="qbot-widget">
+    <section class="qbot-panel glass" id="qbot-panel" role="dialog" aria-modal="false"
+      aria-labelledby="qbot-title" aria-hidden="true" hidden>
+      <header class="qbot-header">
+        <div class="qbot-heading">
+          <img class="qbot-avatar" src="img/favicon.svg" alt="" aria-hidden="true" width="38" height="38" />
+          <div>
+            <h2 class="qbot-title" id="qbot-title">Ask Qasim</h2>
+            <span class="qbot-status-label"><span class="qbot-status" aria-hidden="true"></span> A little about my work</span>
+          </div>
+        </div>
+        <button class="qbot-close" id="qbot-close" type="button" aria-label="Close chat">×</button>
+      </header>
+      <div class="qbot-messages" id="qbot-messages" role="log" aria-live="polite"
+        aria-relevant="additions text"></div>
+      <div class="qbot-suggestions" id="qbot-suggestions" role="listbox"
+        aria-label="Available commands" hidden></div>
+      <div class="qbot-chips" id="qbot-chips" aria-label="Quick replies"></div>
+      <form class="qbot-form" id="qbot-form">
+        <label class="qbot-sr-only" for="qbot-input">Message Qasim</label>
+        <input class="qbot-input" id="qbot-input" type="text" autocomplete="off"
+          placeholder="Ask me something..." aria-label="Type a message" />
+        <button class="qbot-send" type="submit" aria-label="Send message">
+          <span aria-hidden="true">↑</span>
+        </button>
+      </form>
+    </section>
+    <button class="qbot-launcher" id="qbot-launcher" type="button" aria-label="Open chat"
+      aria-controls="qbot-panel" aria-expanded="false">
+      <span class="qbot-launcher-icon" aria-hidden="true">↗</span>
+      <span class="qbot-launcher-label">Chat with me</span>
+    </button>
+  </div>
+
+  <script defer src="script.js"></script>
+
+</body>
+</html>
