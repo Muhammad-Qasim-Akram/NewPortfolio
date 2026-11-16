@@ -53,7 +53,10 @@ h3{font-weight:700;letter-spacing:-.03em}
 .fog .cols p{color:var(--slate)}
 
 /* hero */
-.hero{text-align:center;padding:120px 24px 90px;min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center}
+.hero{position:relative;text-align:center;padding:120px 24px 90px;min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;color:#fff}
+.hero h1,.hero .lead{text-shadow:0 3px 24px rgba(0,0,0,.82)}
+.hero .grad{font-style:italic;background:linear-gradient(100deg,#FF766A,#FFD0C9);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 18px rgba(192,57,43,.42))}
+.hero .mute{color:#E2E5EC}
 .stackview{position:relative;max-width:1000px;margin:36px auto 0;display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:0 20px;align-items:center}
 .stack-stage{height:620px;perspective:2400px;touch-action:pan-y;cursor:grab;position:relative;user-select:none;-webkit-user-select:none}
 .stack-stage:active{cursor:grabbing}
@@ -330,8 +333,8 @@ h3{font-weight:700;letter-spacing:-.03em}
 .f7{width:120px;height:120px;border-radius:50%;border:1.5px solid rgba(110,166,196,.4);--sp:48s}
 .f8{width:22px;height:22px;border-radius:50%;background:rgba(192,57,43,.55)}
 @keyframes spin{to{transform:rotate(360deg)}}
-.cue{position:absolute;left:50%;bottom:30px;width:26px;height:44px;margin-left:-13px;border:2px solid rgba(29,29,31,.45);border-radius:14px}
-.cue span{position:absolute;left:50%;top:8px;width:4px;height:8px;margin-left:-2px;border-radius:2px;background:rgba(29,29,31,.6);animation:cue 1.8s ease-in-out infinite}
+.cue{position:absolute;left:50%;bottom:30px;width:26px;height:44px;margin-left:-13px;border:2px solid rgba(255,255,255,.45);border-radius:14px}
+.cue span{position:absolute;left:50%;top:8px;width:4px;height:8px;margin-left:-2px;border-radius:2px;background:rgba(255,255,255,.75);animation:cue 1.8s ease-in-out infinite}
 @keyframes cue{0%{opacity:0;transform:translateY(0)}30%{opacity:1}100%{opacity:0;transform:translateY(16px)}}
 
 /* ===== pinned scroll stories ===== */

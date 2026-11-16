@@ -42,7 +42,7 @@
 .bars i{display:block;width:16px;border-radius:5px 5px 0 0;background:linear-gradient(#E0675A,#B3261E);height:6px;transition:height .9s cubic-bezier(.2,.8,.2,1);transition-delay:calc(var(--k)*.025s)}
 .bars.ok i{background:linear-gradient(#8fc3a5,#3e8a63)}
 .v.on .bars i{height:var(--h)}
-.meter{font-size:clamp(60px,10vw,120px);font-weight:700;letter-spacing:-.05em}
+.meter{font-size:clamp(60px,10vw,120px);font-weight:700;letter-spacing:-.05em;color:var(--red)}
 .meter small{font-size:.28em;font-weight:500;color:var(--slate);margin-left:6px;letter-spacing:0}
 
 .next{max-width:760px;margin:0 auto;padding:0 24px;list-style:none;counter-reset:n}
