@@ -3,121 +3,157 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#0a0a0a">
-<title>ChatRoom Case Study | Qasim Akram</title>
-<meta name="description" content="How ChatRoom works under the hood: JWT-authenticated WebSockets, Django Channels, Redis pub/sub fan-out and PostgreSQL. An interactive walkthrough by Qasim Akram.">
-<meta property="og:type" content="article">
-<meta property="og:title" content="ChatRoom Case Study | Qasim Akram">
-<meta property="og:description" content="An interactive look at the architecture behind a real-time chat app: auth, fan-out and trade-offs.">
+<meta name="theme-color" content="#ffffff">
+<meta name="robots" content="noindex">
+<title>ChatRoom case study | Qasim Akram</title>
+<meta name="description" content="Qasim Akram, full stack developer and AI engineer. How a message travels through ChatRoom, a real-time Django and React chat app.">
+<link rel="icon" type="image/svg+xml" href="img/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
-<link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="d.css">
 <link rel="stylesheet" href="case.css">
 </head>
 <body>
-<div class="c-ambient" aria-hidden="true"></div>
+<a class="skip" href="#main">Skip to content</a>
+<div class="prog" id="prog" aria-hidden="true"></div>
+<canvas class="bgfix" id="bgFixed" aria-hidden="true"></canvas>
+<div class="floaters" id="floaters" aria-hidden="true"><i class="fl f1"></i><i class="fl f2"></i><i class="fl f3"></i><i class="fl f4"></i><i class="fl f5"></i><i class="fl f6"></i><i class="fl f7"></i><i class="fl f8"></i></div>
 
-
-<header class="cnav">
-  <a class="back" href="index.html#projects">&larr; Portfolio</a>
-  <span class="mid">Case study 01 <i>/</i> ChatRoom</span>
-  <a class="live" href="https://chat-room-two-pi.vercel.app/" target="_blank" rel="noopener">Live demo &#8599;</a>
-</header>
-
-<main>
-<section class="chero">
-  <div class="bgword" aria-hidden="true">REALTIME</div>
-  <div class="eyebrow sr">Case study 01</div>
-  <h1 class="sr" style="--d:.06s">Chat<em>Room</em></h1>
-  <p class="lead sr" style="--d:.12s">A real-time chat app where rooms, messages, reactions and notifications reach everyone instantly. This page walks through how one message travels through the system, and why each piece is built the way it is.</p>
-  <div class="chips sr" style="--d:.18s"><span>Django 4.2</span><span>Django Channels</span><span>Redis pub/sub</span><span>PostgreSQL</span><span>SimpleJWT</span><span>React</span><span>Vercel + Railway</span></div>
-  <div class="stats">
-    <div class="stat gc sr" style="--d:.1s"><b data-count="14">14</b><span>REST endpoints for rooms, messages, reactions and notifications</span></div>
-    <div class="stat gc sr" style="--d:.16s"><b>JWT</b><span>checked before a WebSocket is accepted</span></div>
-    <div class="stat gc sr" style="--d:.22s"><b>Redis</b><span>pub/sub fans events out across workers</span></div>
-    <div class="stat gc sr" style="--d:.28s"><b>2<sup>hosts</sup></b><span>React on Vercel, API, Postgres and Redis on Railway</span></div>
-  </div>
-</section>
-
-<section class="csec" id="problem">
-  <div class="eyebrow sr">The problem</div>
-  <h2 class="sr">What it had to do.</h2>
-  <p class="sub sr">Chat looks simple until two people are connected to different server processes. These four constraints shaped every decision below.</p>
-  <div class="cons">
-    <div class="con gc sr" style="--d:.04s"><span class="n">01</span><h3>Instant, not polled</h3><p>A message has to appear on every screen in the room without anyone refreshing or the client hammering the API.</p></div>
-    <div class="con gc sr" style="--d:.1s"><span class="n">02</span><h3>Authenticated sockets</h3><p>REST uses JWT. The WebSocket has to trust the same identity, and browsers can't attach headers to one.</p></div>
-    <div class="con gc sr" style="--d:.16s"><span class="n">03</span><h3>More than one worker</h3><p>Two users in the same room may be held by different processes. They still have to hear each other.</p></div>
-    <div class="con gc sr" style="--d:.22s"><span class="n">04</span><h3>One-person deployment</h3><p>Frontend on Vercel, backend, Postgres and Redis on Railway. Few moving parts, easy to redeploy.</p></div>
-  </div>
-</section>
-
-<section class="arch" id="arch" aria-label="Interactive architecture walkthrough">
-  <div class="pin" id="pin">
-    <div class="stage" id="stage">
-      <div class="stage-title">
-        <div><h2>Follow one message</h2><small>Scroll to move it. Drag to turn the scene. Tap any block.</small></div>
-        <span class="hint" id="hint">Drag to orbit</span>
-      </div>
-      <div class="scene"><div class="plane" id="plane"></div></div>
-      <div class="stage-ui">
-        <button class="pill" id="kill" aria-pressed="false"><i></i><span>Simulate Redis failure</span></button>
-        <button class="pill" id="reset">Reset view</button>
-      </div>
-      <div class="sheet" id="sheet" role="dialog" aria-live="polite" aria-label="Component details">
-        <button class="x" id="sheetX" aria-label="Close details">&times;</button>
-        <h3 id="shName"></h3><p class="role" id="shRole"></p>
-        <dl><div><dt>Decision</dt><dd id="shDec"></dd></div><div><dt>Trade-off</dt><dd id="shTrade"></dd></div></dl>
+<header class="nav" id="nav">
+  <div class="pill" id="pill">
+    <a class="brand" href="index.html" aria-label="Qasim Akram, home"><i class="mark">Q</i><span>Qasim Akram</span></a>
+    <nav class="menu" id="menu" aria-label="Sections">
+      <span class="ind" id="ind" aria-hidden="true"></span>
+<a href="#journey">Journey</a>
+      <a href="#decisions">Decisions</a>
+      <a href="#next">Next</a>
+    </nav>
+    <div class="reach">
+      <button type="button" class="btn red sm" id="reachBtn" aria-expanded="false" aria-controls="reachPop">Contact</button>
+      <div class="pop" id="reachPop" role="menu" hidden>
+        <a role="menuitem" href="https://wa.me/923126442266" target="_blank" rel="noopener"><b>WhatsApp</b><span>+92 312 6442266</span></a>
+        <a role="menuitem" href="mailto:qasimakram46@hotmail.com"><b>Email</b><span>qasimakram46@hotmail.com</span></a>
+        <a role="menuitem" href="https://www.linkedin.com/in/qasimakram/" target="_blank" rel="noopener"><b>LinkedIn</b><span>/in/qasimakram</span></a>
+        <a role="menuitem" href="https://github.com/Muhammad-Qasim-Akram" target="_blank" rel="noopener"><b>GitHub</b><span>Muhammad-Qasim-Akram</span></a>
+        <a role="menuitem" href="Muhammad_Qasim_Akram_Resume.pdf"><b>Resume</b><span>PDF</span></a>
       </div>
     </div>
-    <aside class="narr gc" id="narr">
-      <div class="count" id="count">01 / 06</div>
-      <div class="steps" id="steps"></div>
-      <div class="dots" id="dots" role="tablist" aria-label="Steps"></div>
-      <p class="tip">Click a step number to jump to it.</p>
-    </aside>
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="sheet" aria-label="Open menu"><span></span><span></span></button>
+  </div>
+  <div class="sheet" id="sheet" hidden>
+    <nav aria-label="Sections"><a href="index.html">Home</a><a href="#journey">Journey</a><a href="#decisions">Decisions</a><a href="#next">Next</a><a href="#contact">Contact</a></nav>
+    <div class="sheet-links">
+      <a href="https://wa.me/923126442266" target="_blank" rel="noopener">WhatsApp</a>
+      <a href="https://www.linkedin.com/in/qasimakram/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/Muhammad-Qasim-Akram" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:qasimakram46@hotmail.com">Email</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<section class="case-hero" id="top" data-mood="hero">
+  <p class="kick">Case study 01</p>
+  <h1>Chat<span class="grad">Room.</span></h1>
+  <p class="lead">A real-time chat app, and what actually happens between pressing send and everyone in the room seeing it.</p>
+  <ul class="chips" aria-label="Stack"><li>Django</li><li>Channels</li><li>Redis</li><li>PostgreSQL</li><li>SimpleJWT</li><li>Daphne</li><li>React</li></ul>
+  <div class="row"><a class="btn red" href="#journey">Follow a message</a><a class="btn ghost" href="https://github.com/Muhammad-Qasim-Akram" target="_blank" rel="noopener">View the code</a></div>
+</section>
+
+<section class="sec center" id="overview" data-mood="warm" style="padding-top:20px">
+  <ul class="facts"><li><b>14</b><span>REST endpoints for rooms, messages and sign-in</span></li><li><b>WebSocket</b><span>for live delivery in every room</span></li><li><b>2 layers</b><span>PostgreSQL for history, Redis for fan-out</span></li></ul>
+</section>
+
+<!-- CHATROOM: pinned scroll story -->
+<section class="sec dark pinsec" id="journey" data-mood="chat">
+  <div class="wrap intro center">
+    <p class="chap">Chapter 1</p><h2 class="big">The journey.</h2>
+    <p class="sub">Scroll to follow one message. Turn Redis off to see what breaks.</p>
+  </div>
+  <div class="pinwrap" id="crPin" style="--n:5">
+    <div class="pin">
+      <div class="pin-grid">
+        <div class="cr-stage" id="crStage" aria-label="3D view of a message travelling through ChatRoom. Drag to turn.">
+          <div class="cr-plane" id="crPlane"></div>
+        </div>
+        <div class="story-card dk" aria-live="polite">
+          <div class="rail" aria-hidden="true"><i id="crFill"></i></div>
+          <p class="sc-step" id="crStep"></p>
+          <h3 id="crTitle"></h3>
+          <p class="sc-text" id="crText"></p>
+          <div class="tags" id="crTags"></div>
+          <div class="dots" id="crDots" role="group" aria-label="Steps"></div>
+          <div class="sc-actions">
+            <button type="button" class="btn light" id="send">Send a message</button>
+            <div class="seg" role="group" aria-label="Redis">
+              <button type="button" id="redisOn" aria-pressed="true">Redis on</button>
+              <button type="button" id="redisOff" aria-pressed="false">Redis off</button>
+            </div>
+          </div>
+          <p class="fine left">A simulation of the design. Members B and C are held by a different worker than you.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="wrap outro center">
+    <div class="cols">
+      <div><h3>Authenticated sockets</h3><p>Browsers cannot attach headers to a WebSocket, so the JWT travels with the connection and is checked before it is accepted.</p></div>
+      <div><h3>Fan-out through Redis</h3><p>Two people in one room can be held by different server processes. Redis pub/sub delivers each message to all of them.</p></div>
+      <div><h3>What I would change</h3><p>Swap the query-string token for a one-time ticket, add a catch-up step on reconnect, and rate limit every connection.</p></div>
+    </div>
+    
   </div>
 </section>
-<noscript><div class="ns"><p>This page is interactive. In short: the browser opens a WebSocket with a JWT, Channels middleware validates it, the consumer saves the message to PostgreSQL and publishes it to Redis, and Redis delivers it to every consumer in the room.</p></div></noscript>
 
-<section class="csec" id="decisions">
-  <div class="eyebrow sr">Decisions</div>
-  <h2 class="sr">Three choices, and what each one cost.</h2>
-  <p class="sub sr">Tap a card to see what I picked, what I turned down, and the price I accepted.</p>
-  <div class="dgrid" id="dgrid"></div>
-</section>
 
-<section class="csec" id="results">
-  <div class="eyebrow sr">Results</div>
-  <h2 class="sr">Measured, not claimed.</h2>
-  <p class="sub sr">Numbers come from a repeatable k6 load test, with the setup and date shown beside them.</p>
-  <div class="rgrid" id="rgrid"></div>
-  <div class="chart gc" id="chart" hidden>
-    <h3>Delivery latency as concurrent clients grow</h3>
-    <div class="bars" id="bars"></div>
-    <p class="readout" id="readout">Hover or tap a bar.</p>
+
+<section class="sec fog pinsec center" id="decisions" data-mood="cool">
+  <div class="wrap intro"><p class="chap">Chapter 2</p><h2 class="big">Four decisions.</h2><p class="sub dim">Each one fixes a specific way a chat app goes wrong.</p></div>
+  <div class="pinwrap" data-story data-label="Decision" id="dcPin" style="--n:4">
+    <div class="pin"><div class="pin-grid">
+      <div class="vis" aria-hidden="true"><div class="v"><i class="ring"></i><i class="ring"></i><i class="ring"></i><div class="flow"><span class="bx" style="--k:0">Message</span><i class="ar" style="--k:1"></i><span class="bx" style="--k:2">PostgreSQL</span><i class="ar" style="--k:3"></i><span class="bx" style="--k:4">Publish</span></div><p class="cap">Saved first</p></div><div class="v"><i class="ring"></i><i class="ring"></i><i class="ring"></i><div class="big-n">JWT</div><p class="cap">Checked before accept()</p></div><div class="v"><i class="ring"></i><i class="ring"></i><i class="ring"></i><div class="flow"><span class="bx" style="--k:0">Worker A</span><i class="ar" style="--k:1"></i><span class="bx" style="--k:2">Redis</span><i class="ar" style="--k:3"></i><span class="bx" style="--k:4">Worker B</span></div><p class="cap">One room, two processes</p></div><div class="v"><i class="ring"></i><i class="ring"></i><i class="ring"></i><div class="big-n">ASGI</div><p class="cap">HTTP and WebSockets together</p></div></div>
+      <div class="story-card" aria-live="polite">
+        <div class="rail" aria-hidden="true"><i></i></div>
+        <p class="sc-step"></p><h3></h3><p class="sc-text"></p><div class="tags"></div>
+        <div class="dots" role="group" aria-label="Decisions"></div>
+      </div>
+    </div></div>
+    <script type="application/json">[{"t": "Save, then send", "d": "The consumer writes to PostgreSQL before it publishes. If delivery fails halfway, the message still exists and can be loaded on the next visit.", "g": ["PostgreSQL", "Ordering"]}, {"t": "Token before socket", "d": "Browsers cannot attach headers to a WebSocket, so the JWT rides along with the connection and is verified before the server accepts it.", "g": ["SimpleJWT", "Channels middleware"]}, {"t": "Redis between workers", "d": "Two people in one room can sit on different server processes. A channel layer on Redis passes each message to all of them.", "g": ["Redis pub/sub", "Channel layer"]}, {"t": "ASGI all the way", "d": "Daphne serves HTTP and WebSockets from the same Django project, so the REST API and the live part share one codebase and one auth system.", "g": ["Daphne", "Django REST Framework"]}]</script>
   </div>
-  <p class="setup" id="setup"></p>
-  <div class="pending" id="pending"><b>Load test pending.</b> The script is in <code>loadtest/k6-chatroom.js</code>. Fill the results object at the top of <code>case.js</code> after a run and this section fills itself in.</div>
 </section>
 
-<section class="csec" id="change">
-  <div class="eyebrow sr">Looking back</div>
-  <h2 class="sr">What I'd change next.</h2>
-  <div class="acc" id="acc"></div>
+<section class="sec center" id="next" data-mood="warm">
+  <div class="wrap"><p class="chap">Chapter 3</p><h2 class="big">What I would change.</h2><p class="sub dim">Honest list, in the order I would do it.</p></div>
+  <ol class="next" style="margin-top:40px">
+    <li data-r="up"><div><b>One-time ticket instead of a query-string token</b><span>Tokens in URLs end up in logs. A short-lived ticket fixes that.</span></div></li>
+    <li data-r="up"><div><b>Catch-up on reconnect</b><span>Ask the server for everything after the last message the client saw.</span></div></li>
+    <li data-r="up"><div><b>Rate limit every connection</b><span>One noisy client should not be able to slow a room down.</span></div></li>
+  </ol>
+  <div class="xlinks"><a href="case-portfolio.html"><b>Next: making this site fast</b><span>Case study 02, with a live frame meter</span></a><a href="index.html"><b>Back to the home page</b><span>All projects and the stack</span></a></div>
 </section>
-<div class="crosslink sr"><a class="gc" href="case-portfolio.html"><span><small>Case study 02</small>How this portfolio stays smooth</span><b>&rarr;</b></a></div>
+
+<!-- CONTACT -->
+<section class="sec dark center" id="contact">
+  <div class="wrap">
+    <h2 class="big">Let's talk.</h2>
+    <p class="sub">Open to internships and junior roles.</p>
+    <div class="row c">
+      <a class="btn red" href="mailto:qasimakram46@hotmail.com">Email me</a>
+      <a class="btn line" href="Muhammad_Qasim_Akram_Resume.pdf">Download resume</a>
+      <a class="btn line" href="https://github.com/Muhammad-Qasim-Akram" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <ul class="social" aria-label="Find me elsewhere">
+      <li><a href="https://wa.me/923126442266" target="_blank" rel="noopener">WhatsApp</a></li>
+      <li><a href="https://www.linkedin.com/in/qasimakram/" target="_blank" rel="noopener">LinkedIn</a></li>
+      <li><a href="https://github.com/Muhammad-Qasim-Akram" target="_blank" rel="noopener">GitHub</a></li>
+      <li><a href="mailto:qasimakram46@hotmail.com">Email</a></li>
+    </ul>
+    <p class="foot">Qasim Akram. Bahawalpur, Pakistan. BS Computer Science, Islamia University of Bahawalpur.</p>
+  </div>
+</section>
+
 </main>
-
-<footer class="cfoot">
-  <h2>Want to talk about it?</h2>
-  <div class="btns">
-    <a class="btn p" href="mailto:qasimakram46@hotmail.com?subject=ChatRoom%20case%20study">Email me</a>
-    <a class="btn o" href="index.html#projects">More projects</a>
-    <a class="btn o" href="https://github.com/Muhammad-Qasim-Akram" target="_blank" rel="noopener">GitHub &#8599;</a>
-  </div>
-</footer>
-
-<script src="case.js" defer></script>
+<script src="d.js" defer></script>
 </body>
 </html>

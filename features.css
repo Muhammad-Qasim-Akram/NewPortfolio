@@ -1,0 +1,464 @@
+.contact-grid {
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(0, 1fr);
+  gap: clamp(32px, 7vw, 88px);
+  margin: 56px auto 0;
+  max-width: 920px;
+  text-align: left;
+}
+
+.contact-copy {
+  align-self: center;
+}
+
+.contact-kicker {
+  color: var(--coral);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.contact-copy h3 {
+  margin-top: 12px;
+  font-size: clamp(28px, 4vw, 44px);
+  line-height: 1.05;
+}
+
+.contact-copy > p:not(.contact-kicker) {
+  margin-top: 16px;
+  color: var(--dark-dim);
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.contact-email {
+  display: inline-block;
+  margin-top: 22px;
+  color: var(--dark-text);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--coral);
+  text-underline-offset: 5px;
+}
+
+.contact-form {
+  display: grid;
+  gap: 16px;
+}
+
+.contact-field {
+  display: grid;
+  gap: 7px;
+}
+
+.contact-field label {
+  color: var(--dark-dim);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.contact-field input,
+.contact-field textarea {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid rgba(255, 255, 255, .2);
+  border-radius: var(--r);
+  padding: 13px 14px;
+  background: rgba(255, 255, 255, .07);
+  color: var(--dark-text);
+  font: inherit;
+  line-height: 1.5;
+}
+
+.contact-field textarea {
+  min-height: 132px;
+  resize: vertical;
+}
+
+.contact-field input::placeholder,
+.contact-field textarea::placeholder {
+  color: #A1A1A6;
+}
+
+.contact-field input:focus,
+.contact-field textarea:focus {
+  outline: 2px solid var(--coral);
+  outline-offset: 2px;
+  border-color: var(--coral);
+}
+
+.contact-submit {
+  position: relative;
+  justify-self: start;
+  min-width: 170px;
+  overflow: hidden;
+}
+
+.contact-submit:disabled {
+  cursor: wait;
+  opacity: .8;
+}
+
+.contact-progress {
+  position: absolute;
+  inset: auto auto 0 0;
+  width: 0;
+  height: 3px;
+  background: var(--coral);
+}
+
+.contact-progress.sending {
+  width: 100%;
+  transform-origin: left;
+  animation: contact-send 1.4s ease-in-out infinite;
+}
+
+.contact-progress.sent {
+  width: 100%;
+}
+
+@keyframes contact-send {
+  0% { transform: scaleX(.05); }
+  50% { transform: scaleX(.72); }
+  100% { transform: scaleX(.12); }
+}
+
+.contact-status {
+  min-height: 1.5em;
+  color: var(--dark-dim);
+  font-size: 14px;
+}
+
+.contact-status[data-state="success"] {
+  color: #9de0ac;
+}
+
+.contact-status[data-state="error"] {
+  color: #ffaaa1;
+}
+
+.qbot-widget {
+  position: fixed;
+  right: 24px;
+  bottom: max(22px, env(safe-area-inset-bottom));
+  z-index: 50;
+  color: var(--ink);
+}
+
+.qbot-panel {
+  position: absolute;
+  right: 0;
+  bottom: 72px;
+  display: flex;
+  flex-direction: column;
+  width: min(370px, calc(100vw - 32px));
+  height: min(590px, 80vh);
+  max-height: 80vh;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, .1);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, .96);
+  box-shadow: 0 20px 56px rgba(0, 0, 0, .22);
+  transform: translateY(10px) scale(.97);
+  transform-origin: bottom right;
+  opacity: 0;
+  transition: transform .22s ease, opacity .18s ease;
+}
+
+.qbot-panel.qbot-open {
+  transform: none;
+  opacity: 1;
+}
+
+.qbot-panel[hidden],
+.qbot-suggestions[hidden] {
+  display: none;
+}
+
+.qbot-header {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  background: var(--black);
+  color: var(--dark-text);
+}
+
+.qbot-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.qbot-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+}
+
+.qbot-title {
+  margin: 0;
+  font-size: 17px;
+}
+
+.qbot-status-label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 2px;
+  color: var(--dark-dim);
+  font-size: 12px;
+}
+
+.qbot-status {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 0 4px rgba(74, 222, 128, .12);
+}
+
+.qbot-close,
+.qbot-send {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+}
+
+.qbot-close {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--r);
+  color: var(--dark-text);
+  font-size: 24px;
+}
+
+.qbot-close:hover {
+  background: rgba(255, 255, 255, .12);
+}
+
+.qbot-messages {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 100px;
+  padding: 16px 14px 10px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.qbot-message {
+  max-width: 88%;
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-size: 13px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  animation: qbot-message-in .22s ease both;
+}
+
+.qbot-bot {
+  align-self: flex-start;
+  border: 1px solid var(--line);
+  border-top-left-radius: 4px;
+  background: var(--fog);
+}
+
+.qbot-user {
+  align-self: flex-end;
+  border-top-right-radius: 4px;
+  background: var(--ink);
+  color: var(--dark-text);
+}
+
+.qbot-link {
+  color: var(--red);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.qbot-typing {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 48px;
+  padding: 13px;
+}
+
+.qbot-typing span {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--slate);
+  animation: qbot-dot .85s ease-in-out infinite;
+}
+
+.qbot-typing span:nth-child(2) { animation-delay: .12s; }
+.qbot-typing span:nth-child(3) { animation-delay: .24s; }
+
+.qbot-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  max-height: 90px;
+  margin: 0 13px 8px;
+  overflow-y: auto;
+}
+
+.qbot-suggestion,
+.qbot-chip {
+  border: 1px solid rgba(192, 57, 43, .32);
+  border-radius: 999px;
+  padding: 6px 10px;
+  background: transparent;
+  color: var(--red);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.qbot-suggestion:hover,
+.qbot-chip:hover {
+  background: rgba(192, 57, 43, .08);
+}
+
+.qbot-chips {
+  display: flex;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+  gap: 7px;
+  padding: 7px 13px 11px;
+}
+
+.qbot-form {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-top: 1px solid var(--line);
+  background: var(--fog);
+}
+
+.qbot-input {
+  width: 100%;
+  min-width: 0;
+  height: 42px;
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 0 12px;
+  background: var(--white);
+  color: var(--ink);
+  font: inherit;
+}
+
+.qbot-send {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--r);
+  background: var(--red);
+  color: var(--white);
+  font-size: 20px;
+}
+
+.qbot-send:hover {
+  background: #A93226;
+}
+
+.qbot-launcher {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 52px;
+  padding: 0 18px;
+  border: 1px solid rgba(255, 255, 255, .2);
+  border-radius: 12px;
+  background: var(--red);
+  box-shadow: 0 10px 28px rgba(128, 48, 39, .24);
+  color: var(--white);
+  font-size: 14px;
+  font-weight: 700;
+  transition: transform .2s ease, background .2s ease;
+}
+
+.qbot-launcher:hover {
+  transform: translateY(-2px);
+  background: #A93226;
+}
+
+.qbot-launcher-icon {
+  color: var(--coral);
+  font-size: 16px;
+}
+
+.qbot-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.qbot-close:focus-visible,
+.qbot-send:focus-visible,
+.qbot-launcher:focus-visible,
+.qbot-chip:focus-visible,
+.qbot-suggestion:focus-visible,
+.qbot-input:focus-visible {
+  outline: 3px solid #2D6CDF;
+  outline-offset: 3px;
+}
+
+@keyframes qbot-message-in {
+  from { opacity: 0; transform: translateY(7px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes qbot-dot {
+  0%, 60%, 100% { opacity: .35; transform: translateY(0); }
+  30% { opacity: 1; transform: translateY(-3px); }
+}
+
+@media (max-width: 760px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    margin-top: 40px;
+  }
+
+  .qbot-widget {
+    right: 14px;
+    bottom: max(14px, env(safe-area-inset-bottom));
+  }
+
+  .qbot-panel {
+    bottom: 68px;
+    width: calc(100vw - 28px);
+    height: min(590px, 80vh);
+  }
+
+  .qbot-launcher {
+    min-height: 48px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-progress.sending,
+  .qbot-panel,
+  .qbot-message,
+  .qbot-typing span,
+  .qbot-launcher {
+    animation: none !important;
+    transition: none !important;
+  }
+}
