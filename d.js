@@ -8,6 +8,55 @@
   var lerp = function (a, b, t) { return a + (b - a) * t; };
   document.documentElement.classList.add('js');
 
+  if (fine && !reduce) {
+    var waterCursor = document.createElement('span');
+    waterCursor.className = 'water-cursor';
+    waterCursor.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(waterCursor);
+    document.documentElement.classList.add('has-water-cursor');
+
+    var cursorX = -100, cursorY = -100, targetX = -100, targetY = -100;
+    var cursorVX = 0, cursorVY = 0, cursorFrame = 0, cursorReady = false;
+    function animateWaterCursor() {
+      cursorFrame = 0;
+      var dx = targetX - cursorX, dy = targetY - cursorY;
+      cursorVX = (cursorVX + dx * 0.2) * 0.64;
+      cursorVY = (cursorVY + dy * 0.2) * 0.64;
+      cursorX += cursorVX; cursorY += cursorVY;
+      if (Math.abs(dx) < 0.12 && Math.abs(dy) < 0.12 && Math.abs(cursorVX) < 0.12 && Math.abs(cursorVY) < 0.12) {
+        cursorX = targetX; cursorY = targetY; cursorVX = 0; cursorVY = 0;
+      }
+      var speed = Math.min(1, Math.sqrt(cursorVX * cursorVX + cursorVY * cursorVY) / 22);
+      waterCursor.style.setProperty('--x', cursorX + 'px');
+      waterCursor.style.setProperty('--y', cursorY + 'px');
+      waterCursor.style.setProperty('--angle', Math.atan2(cursorVY, cursorVX) + 'rad');
+      waterCursor.style.setProperty('--sx', 1 + speed * 0.28);
+      waterCursor.style.setProperty('--sy', 1 - speed * 0.2);
+      if (Math.abs(targetX - cursorX) >= 0.12 || Math.abs(targetY - cursorY) >= 0.12 || Math.abs(cursorVX) >= 0.12 || Math.abs(cursorVY) >= 0.12) {
+        cursorFrame = requestAnimationFrame(animateWaterCursor);
+      }
+    }
+    function moveWaterCursor(e) {
+      if (e.pointerType === 'touch') return;
+      targetX = e.clientX; targetY = e.clientY;
+      if (!cursorReady) {
+        cursorX = targetX; cursorY = targetY; cursorReady = true;
+      }
+      var target = e.target;
+      var editing = target.closest && target.closest('input:not([type]), input[type="text"], input[type="email"], input[type="search"], input[type="url"], input[type="tel"], input[type="password"], textarea, [contenteditable="true"]');
+      var text = target.closest && target.closest('h1,h2,h3,h4,p,a,button,label,li,dt,dd,span,strong,em,small');
+      waterCursor.classList.toggle('is-hidden', !!editing);
+      waterCursor.classList.toggle('is-text', !!text && !editing);
+      if (!cursorFrame) cursorFrame = requestAnimationFrame(animateWaterCursor);
+    }
+    document.addEventListener('pointermove', moveWaterCursor, { passive: true });
+    document.addEventListener('pointerover', moveWaterCursor, { passive: true });
+    document.addEventListener('pointerout', function (e) {
+      if (!e.relatedTarget) waterCursor.classList.add('is-hidden');
+    });
+    addEventListener('blur', function () { waterCursor.classList.add('is-hidden'); });
+  }
+
   /* ================= nav ================= */
   var nav = $('#nav'), burger = $('#burger'), sheet = $('#sheet');
   function setSheet(open) {
@@ -56,7 +105,16 @@
     var sc = scrollY > 24; if (sc !== scrolled) { scrolled = sc; nav.classList.toggle('scrolled', sc); }
     var h = document.documentElement.scrollHeight - innerHeight;
     prog.style.transform = 'scaleX(' + (h > 0 ? clamp(scrollY / h, 0, 1) : 0) + ')';
-    var cs = currentSection(); if (cs && cs.id !== runFrame.last) { runFrame.last = cs.id; setActive(cs.id === 'top' || cs.id === 'contact' ? '' : cs.id); runFrame.el = cs; }
+    var cs = currentSection();
+    if (cs) {
+      if (cs.id !== runFrame.last) {
+        runFrame.last = cs.id;
+        setActive(cs.id === 'top' || cs.id === 'contact' ? '' : cs.id);
+        runFrame.el = cs;
+      }
+      var mood = cs.getAttribute('data-mood');
+      nav.classList.toggle('on-dark', mood === 'chat' || mood === 'contact' || cs.id === 'chatroom' || cs.id === 'contact');
+    }
     listeners.forEach(function (f) { f(); });
   }
   function requestFrame() { if (!queued) { queued = true; requestAnimationFrame(runFrame); } }
@@ -482,6 +540,68 @@
       });
     });
   })();
+
+  /* ================= contact form ================= */
+  var contactForm = $('#contactForm');
+  if (contactForm) {
+    var sendBtn = $('#sendBtn'), btnText = $('#btnText'), btnBar = $('#btnBar');
+    var contactStatus = $('#contactStatus');
+    if (window.emailjs) window.emailjs.init('yCgwIWXoWe_klsqNy');
+
+    contactForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!contactForm.reportValidity()) return;
+
+      var name = $('#from_name').value.trim();
+      var email = $('#from_email').value.trim();
+      var message = $('#message').value.trim();
+      contactStatus.textContent = '';
+      contactStatus.removeAttribute('data-state');
+
+      if (!window.emailjs) {
+        contactStatus.textContent = 'Email delivery is unavailable here. Opening your email app instead.';
+        window.location.href = 'mailto:qasimakram46@hotmail.com?subject=' +
+          encodeURIComponent('Portfolio contact from ' + name) + '&body=' +
+          encodeURIComponent(message + '\n\n' + name + ' (' + email + ')');
+        return;
+      }
+
+      sendBtn.disabled = true;
+      btnText.textContent = 'Sending...';
+      btnBar.classList.remove('sent');
+      btnBar.classList.add('sending');
+      contactStatus.textContent = 'Sending your message...';
+
+      window.emailjs.send('portfolio_contack', 'template_mkyegym', {
+        from_name: name,
+        from_email: email,
+        message: message
+      }).then(function () {
+        contactForm.reset();
+        contactStatus.textContent = 'Message sent. Thanks for getting in touch!';
+        contactStatus.setAttribute('data-state', 'success');
+        btnText.textContent = 'Message sent';
+        btnBar.classList.remove('sending');
+        btnBar.classList.add('sent');
+        sendBtn.disabled = false;
+      }).catch(function (error) {
+        console.error('EmailJS could not send the contact message.', error);
+        contactStatus.textContent = 'Your message could not be sent. Please try again or email me directly.';
+        contactStatus.setAttribute('data-state', 'error');
+        btnText.textContent = 'Send message';
+        btnBar.classList.remove('sending', 'sent');
+        sendBtn.disabled = false;
+      });
+    });
+
+    contactForm.addEventListener('input', function () {
+      if (contactStatus.getAttribute('data-state') !== 'success') return;
+      contactStatus.textContent = '';
+      contactStatus.removeAttribute('data-state');
+      btnText.textContent = 'Send message';
+      btnBar.classList.remove('sent');
+    });
+  }
 
   requestFrame();
 })();
