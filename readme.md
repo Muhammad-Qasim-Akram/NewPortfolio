@@ -2,7 +2,6 @@
 
 Personal portfolio of **Muhammad Qasim Akram**, a Full Stack Developer and AI Engineer based in Pakistan.
 
-![Portfolio homepage](img/portfolio-homepage.png)
 
 ![Portfolio hero section](img/hero-screenshot.png)
 
