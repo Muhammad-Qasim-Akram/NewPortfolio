@@ -40,10 +40,13 @@
   var activeCard = null;
   var visible = true;
   var wheelElapsed = 0;
-  var speed = 1.9;
-  var titleRollDuration = 1.8;
-  var titleStagger = -0.076;
-  var titleFaceCount = 4.02;
+  var speed = 2;
+  var titleElapsed = 0;
+  var titleRollSpeed = 40;
+  var titleLetterLag = 11;
+  var titleStartingAngle = 18;
+  var titleFaceSpacing = 27;
+  var titleFaceCutoff = .12;
   var lastFrame = 0 ;
   var frameId = 0;
 
@@ -187,18 +190,40 @@
 
     var cube = document.createElement('span');
     cube.className = 'portfolio-letter-cube';
-    cube.style.animationDuration = (titleRollDuration * titleFaceCount) + 's';
-    cube.style.animationDelay = (index * titleStagger) + 's';
-    for (var faceIndex = 0; faceIndex < titleFaceCount; faceIndex += 1) {
+    for (var faceIndex = 0; faceIndex < 4; faceIndex += 1) {
       var face = document.createElement('b');
       face.className = 'portfolio-letter-face ' + (faceIndex % 2 ? 'outline' : 'solid');
       face.textContent = character;
-      face.style.transform = 'rotateX(' + (faceIndex * (360 / titleFaceCount)) + 'deg) translateZ(28px)';
       cube.appendChild(face);
     }
     letter.appendChild(cube);
     word.appendChild(letter);
   });
+
+  function updateTitle(time) {
+    var letters = word.querySelectorAll('.portfolio-letter-cube');
+    letters.forEach(function (cube, index) {
+      var angle = titleRollSpeed * time - titleStartingAngle - titleLetterLag * index;
+      var skew = -9 + 4 * Math.sin(time * 1.1 + index * .7);
+      var wave = 3 * Math.sin(time * 1.6 - index * .8);
+      cube.style.transform = 'translateY(' + wave + 'px) skewX(' + skew + 'deg)';
+
+      for (var faceIndex = 0; faceIndex < 4; faceIndex += 1) {
+        var phase = (faceIndex * 90 - angle) * Math.PI / 180;
+        var cosine = Math.cos(phase);
+        var face = cube.children[faceIndex];
+        if (cosine <= titleFaceCutoff) {
+          face.style.opacity = 0;
+          continue;
+        }
+        face.style.opacity = 1;
+        face.style.zIndex = String(Math.round(cosine * 100));
+        face.style.transform = 'translateY(' + (-titleFaceSpacing * Math.sin(phase)) + 'px) scaleY(' + cosine + ')';
+      }
+    });
+  }
+
+  updateTitle(0);
 
   function fitWord() {
     var placeholders = word.querySelectorAll('.portfolio-letter-placeholder');
@@ -270,14 +295,16 @@
     document.getElementById('portfolioTriangleLeft').style.left = triangleInset + 'px';
     document.getElementById('portfolioTriangleRight').style.right = triangleInset + 'px';
 
-    document.getElementById('portfolioName').style.top = (barBottom - 6 + mobileTextOffset) + 'px';
+    var name = document.getElementById('portfolioName');
+    name.style.top = (barBottom - 6 + mobileTextOffset) + 'px';
     var role = document.getElementById('portfolioRole');
     role.style.top = (barBottom - 6 + mobileTextOffset) + 'px';
     if (width < 560) {
+      name.style.top = (barBottom + 8 + mobileTextOffset) + 'px';
       role.style.right = 'auto';
       role.style.left = titleMargin + 'px';
-      role.style.top = (barBottom + 7 + mobileTextOffset) + 'px';
-      description.style.top = (barBottom + 30 + mobileTextOffset) + 'px';
+      role.style.top = (barBottom + 34 + mobileTextOffset) + 'px';
+      description.style.top = (barBottom + 59 + mobileTextOffset) + 'px';
       description.style.left = titleMargin + 'px';
       description.style.right = 'auto';
       description.style.width = (width - 2 * titleMargin) + 'px';
@@ -317,6 +344,8 @@
     frameId = 0;
     var delta = lastFrame ? Math.min(.05, (now - lastFrame) / 1000) : 0;
     lastFrame = now;
+    titleElapsed += delta;
+    updateTitle(titleElapsed);
     var targetSpeed = activeCard ? 0 : 1;
     speed += (targetSpeed - speed) * Math.min(1, delta * 9);
     if (speed < .003 && activeCard) speed = 0;

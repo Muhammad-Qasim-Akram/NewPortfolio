@@ -179,7 +179,6 @@
 .portfolio-word {
   display: flex;
   height: 56px;
-  perspective: 650px;
   font-family: "Krona One", "Syncopate", "Arial Black", sans-serif;
   font-size: 56px;
   line-height: 56px;
@@ -199,21 +198,7 @@
 .portfolio-letter-cube {
   position: absolute;
   inset: 0;
-  transform-style: preserve-3d;
-  animation: portfolio-letter-roll 9.6s cubic-bezier(.45, 0, .55, 1) infinite both;
   will-change: transform;
-}
-
-.portfolio-hero:not(.portfolio-visible) .portfolio-letter-cube {
-  animation-play-state: paused;
-}
-
-@keyframes portfolio-letter-roll {
-  0%, 17.5% { transform: rotateX(0deg) skewX(-5deg) rotateZ(-1deg); }
-  25%, 42.5% { transform: rotateX(90deg) skewX(-7deg) rotateZ(1deg); }
-  50%, 67.5% { transform: rotateX(180deg) skewX(-5deg) rotateZ(-1deg); }
-  75%, 92.5% { transform: rotateX(270deg) skewX(-7deg) rotateZ(1deg); }
-  100% { transform: rotateX(360deg) skewX(-5deg) rotateZ(-1deg); }
 }
 
 .portfolio-letter-face {
@@ -224,6 +209,7 @@
   justify-content: center;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  will-change: transform;
   white-space: pre;
 }
 
@@ -403,7 +389,4 @@
     transition: none;
   }
 
-  .portfolio-letter-cube {
-    animation: none;
-  }
 }
