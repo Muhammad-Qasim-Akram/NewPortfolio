@@ -68,14 +68,14 @@
 .portfolio-name {
   top: 262px;
   left: var(--m, 97px);
-  font-size: 13px;
+  font-size: 18px;
   letter-spacing: .02em;
 }
 
 .portfolio-role {
   top: 262px;
   right: calc(var(--m, 97px) - 1px);
-  font-size: 12.5px;
+  font-size: 15px;
   letter-spacing: .02em;
 }
 
@@ -86,7 +86,7 @@
   width: min(520px, calc(100% - 48px));
   color: #444;
   font-family: Inter, "Helvetica Neue", Arial, sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
   line-height: 1.5;
   text-align: center;
@@ -200,7 +200,7 @@
   position: absolute;
   inset: 0;
   transform-style: preserve-3d;
-  animation: portfolio-letter-roll 4.5s linear infinite;
+  animation: portfolio-letter-roll 9.6s cubic-bezier(.45, 0, .55, 1) infinite both;
   will-change: transform;
 }
 
@@ -209,11 +209,11 @@
 }
 
 @keyframes portfolio-letter-roll {
-  0% { transform: rotateX(0deg) skewX(-9deg); }
-  25% { transform: rotateX(90deg) skewX(0deg); }
-  50% { transform: rotateX(180deg) skewX(-9deg); }
-  75% { transform: rotateX(270deg) skewX(-18deg); }
-  100% { transform: rotateX(360deg) skewX(-9deg); }
+  0%, 17.5% { transform: rotateX(0deg) skewX(-5deg) rotateZ(-1deg); }
+  25%, 42.5% { transform: rotateX(90deg) skewX(-7deg) rotateZ(1deg); }
+  50%, 67.5% { transform: rotateX(180deg) skewX(-5deg) rotateZ(-1deg); }
+  75%, 92.5% { transform: rotateX(270deg) skewX(-7deg) rotateZ(1deg); }
+  100% { transform: rotateX(360deg) skewX(-5deg) rotateZ(-1deg); }
 }
 
 .portfolio-letter-face {
@@ -234,7 +234,7 @@
 
 .portfolio-letter-face.outline {
   color: transparent;
-  -webkit-text-stroke: 1.2px #030303;
+  -webkit-text-stroke: 1.6px #030303;
 }
 
 .portfolio-wheel {

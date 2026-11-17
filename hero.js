@@ -41,6 +41,9 @@
   var visible = true;
   var wheelElapsed = 0;
   var speed = 1;
+  var titleRollDuration = 2.4;
+  var titleStagger = 0.075;
+  var titleFaceCount = 4;
   var lastFrame = 0;
   var frameId = 0;
 
@@ -184,12 +187,13 @@
 
     var cube = document.createElement('span');
     cube.className = 'portfolio-letter-cube';
-    cube.style.animationDelay = (-index * .475) + 's';
-    for (var faceIndex = 0; faceIndex < 4; faceIndex += 1) {
+    cube.style.animationDuration = (titleRollDuration * titleFaceCount) + 's';
+    cube.style.animationDelay = (index * titleStagger) + 's';
+    for (var faceIndex = 0; faceIndex < titleFaceCount; faceIndex += 1) {
       var face = document.createElement('b');
       face.className = 'portfolio-letter-face ' + (faceIndex % 2 ? 'outline' : 'solid');
       face.textContent = character;
-      face.style.transform = 'rotateX(' + (faceIndex * 90) + 'deg) translateZ(28px)';
+      face.style.transform = 'rotateX(' + (faceIndex * (360 / titleFaceCount)) + 'deg) translateZ(28px)';
       cube.appendChild(face);
     }
     letter.appendChild(cube);
