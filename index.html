@@ -48,8 +48,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Krona+One&family=Syncopate:wght@700&family=Syne:wght@800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="d.css">
 <link rel="stylesheet" href="features.css">
+<link rel="stylesheet" href="hero.css">
 <script defer src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <meta name="google-site-verification" content="dL1UoYYp8x-xpIY9LGcvwdt-tdwn-hxmc0gNem002Vs">
 </head>
@@ -98,14 +100,45 @@
 <main id="main">
 
 <!-- HERO -->
-<section class="hero" id="top">
-  <h1>Hey! I'm <span class="grad">Qasim.</span></h1>
-  <p class="lead">Full stack developer and AI engineer.<br><span class="mute">Building web apps and practical AI tools.</span></p>
-  <div class="row">
-    <a class="btn red" href="#layers">See how I build</a>
-    <a class="btn ghost" href="mailto:qasimakram46@hotmail.com">Email me</a>
+<section class="hero portfolio-hero" id="top" aria-labelledby="heroTitle">
+  <div class="portfolio-stage" id="portfolioStage">
+    <span class="portfolio-cross" style="--x:3.74%;--y:5.38%"></span><span class="portfolio-cross" style="--x:36.78%;--y:5.38%"></span>
+    <span class="portfolio-cross" style="--x:63.22%;--y:5.38%"></span><span class="portfolio-cross" style="--x:95.83%;--y:5.38%"></span>
+    <span class="portfolio-cross" style="--x:3.74%;--y:36.02%"></span><span class="portfolio-cross" style="--x:36.78%;--y:36.02%"></span>
+    <span class="portfolio-cross" style="--x:63.22%;--y:36.02%"></span><span class="portfolio-cross" style="--x:95.83%;--y:36.02%"></span>
+    <span class="portfolio-triangle portfolio-triangle-left" aria-hidden="true"></span>
+    <span class="portfolio-triangle portfolio-triangle-right" aria-hidden="true"></span>
+
+    <div class="portfolio-redbar" aria-hidden="true"></div>
+    <p class="portfolio-welcome">Welcome<br>to my</p>
+    <p class="portfolio-name">Muhammad Qasim Akram</p>
+    <p class="portfolio-role">Full Stack Developer · AI Engineer</p>
+    <img class="portfolio-emblem" src="img/favicon.svg" width="26" height="26" alt="" aria-hidden="true">
+
+    <h1 class="portfolio-heading" id="heroTitle">
+      <span class="sr">Portfolio</span>
+      <span class="portfolio-word" id="portfolioWord" aria-hidden="true"></span>
+    </h1>
+
+    <div class="portfolio-wheel" id="portfolioWheel" role="list" aria-label="Selected projects">
+      <svg class="portfolio-ring" viewBox="-150 -150 300 300" aria-hidden="true">
+        <defs>
+          <radialGradient id="portfolioGlow">
+            <stop offset="0" stop-color="#f1f1f1"></stop>
+            <stop offset=".8" stop-color="#e9e9e9"></stop>
+            <stop offset="1" stop-color="#dcdcdc" stop-opacity="0"></stop>
+          </radialGradient>
+          <path id="portfolioRingPath" d="M0 -112A112 112 0 1 1 -.01 -112"></path>
+        </defs>
+        <circle r="150" fill="url(#portfolioGlow)" opacity=".75"></circle>
+        <circle r="133" fill="none" stroke="#bdbdbd" stroke-width="1" stroke-dasharray="4 9"></circle>
+        <text font-family="Syncopate,Arial,sans-serif" font-size="9" letter-spacing="1.6" fill="#999">
+          <textPath href="#portfolioRingPath">QASIM AKRAM · PORTFOLIO · QASIM AKRAM · PORTFOLIO · </textPath>
+        </text>
+      </svg>
+      <span class="portfolio-me" aria-hidden="true"><i></i>ME</span>
+    </div>
   </div>
-  <a class="cue" href="#layers" aria-label="Scroll down"><span></span></a>
 </section>
 
 <!-- STACK MARQUEE -->
@@ -349,6 +382,7 @@
   </button>
 </div>
 <script src="chatbot.js" defer></script>
+<script src="hero.js" defer></script>
 <script src="d.js" defer></script>
 </body>
 </html>

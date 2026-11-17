@@ -107,6 +107,7 @@
     prog.style.transform = 'scaleX(' + (h > 0 ? clamp(scrollY / h, 0, 1) : 0) + ')';
     var cs = currentSection();
     if (cs) {
+      document.documentElement.classList.toggle('hero-active', cs.id === 'top');
       if (cs.id !== runFrame.last) {
         runFrame.last = cs.id;
         setActive(cs.id === 'top' || cs.id === 'contact' ? '' : cs.id);
@@ -385,24 +386,6 @@
 
   })();
 
-  /* ================= name scramble ================= */
-  var g = $('.hero h1 .grad');
-  if (g && !reduce) {
-    var fin = g.textContent, chars = 'abcdefghijklmnopqrstuvwxyz', st0 = null, dur = 900;
-    g.setAttribute('aria-hidden', 'true');
-    var sr = document.createElement('span'); sr.className = 'sr'; sr.textContent = fin; g.parentNode.insertBefore(sr, g);
-    (function frame(ts) {
-      if (st0 === null) st0 = ts;
-      var p = clamp((ts - st0) / dur, 0, 1), out = '';
-      for (var k = 0; k < fin.length; k++) {
-        var ch = fin[k], rnd = chars[Math.floor(Math.random() * 26)];
-        out += (p >= (k + 1) / (fin.length + 1) || ch === '.') ? ch : (k === 0 ? rnd.toUpperCase() : rnd);
-      }
-      g.textContent = p >= 1 ? fin : out;
-      if (p < 1) requestAnimationFrame(frame);
-    })(performance.now());
-  }
-
   /* ================= magnetic buttons + card spotlight ================= */
   if (fine && !reduce) {
     $$('.btn.red, .btn.ghost').forEach(function (b) {
@@ -422,7 +405,7 @@
   /* ================= scroll reveal on everything else ================= */
   (function () {
     var groups = [
-      ['.hero h1', 'up'], ['.hero .lead', 'up'], ['.hero .row', 'up'], ['.marq', 'up'],
+      ['.marq', 'up'],
       ['.sec h2', 'up'], ['.sub', 'up'], ['.card', 'scale'], ['.cols>div', 'up'], ['.sec p>.btn', 'up'],
       ['.lab-view', 'left'], ['.lab-panel', 'right'], ['.tbl-wrap', 'up'], ['.specs>div', 'left'],
       ['.case-hero > *:not(h1)', 'up'], ['.chap', 'up'], ['.facts li', 'scale'], ['.xlinks a', 'up'], ['.vis', 'scale'], ['.row.c a', 'up'], ['.social li', 'up'], ['.foot', 'up']
@@ -482,10 +465,10 @@
   /* ================= living background: one fixed canvas for the whole page ================= */
   (function () {
     var cv = $('#bgFixed'), ctx = cv.getContext('2d'); if (!ctx) return;
-    var SC = 0.2, W = 0, H = 0, vis = !document.hidden, raf = 0, lastT = 0;
+    var SC = 0.2, W = 0, H = 0, vis = !document.hidden, raf = 0, lastT = 0, lastDrawMood = null;
     /* palette per mood: base colour and 5 blobs [r,g,b,alpha] */
     var P = {
-      hero:   { base: [2, 5, 15],      b: [[242,161,151,.36],[192,57,43,.22],[255,214,170,.35],[255,190,200,.25],[255,170,120,.16]] },
+      hero:   { base: [244, 242, 238], b: [[242,161,151,0],[192,57,43,0],[255,214,170,0],[255,190,200,0],[255,170,120,0]] },
       cool:   { base: [255, 255, 255], b: [[150,185,230,.38],[242,161,151,.3],[255,214,170,.3],[110,166,196,.3],[200,210,245,.34]] },
       warm:   { base: [245, 245, 247], b: [[255,190,200,.45],[255,214,170,.5],[242,161,151,.4],[192,57,43,.15],[255,170,120,.3]] },
       chat:   { base: [0, 0, 0],       b: [[192,57,43,.62],[110,166,196,.3],[242,161,151,.26],[122,36,27,.6],[70,90,140,.3]] },
@@ -495,72 +478,11 @@
     var MAP = { top: 'hero', layers: 'cool', highlights: 'warm', chatroom: 'chat', speed: 'speed', compare: 'cool', specs: 'warm', contact: 'contact' };
     var cur = JSON.parse(JSON.stringify(P.hero)), target = P.hero;
     var SPOT = [[.25,.25,.12,.12,.22,.17],[.78,.2,.1,.1,.17,.25],[.6,.62,.15,.1,.13,.2],[.1,.78,.08,.12,.2,.14],[.9,.85,.1,.1,.15,.19]];
-    var HERO_SPIKES = [];
-    for (var spikeIndex = 0; spikeIndex < 35; spikeIndex++) {
-      var spikeX = (spikeIndex + 0.5) / 35;
-      var spikeHeight = 0.2 + 0.76 * (1 - Math.pow(Math.abs(spikeX - 0.5) * 2, 1.3));
-      var spikeWidth = 0.018 + (spikeIndex % 4) * 0.002;
-      HERO_SPIKES.push([spikeX, spikeHeight, spikeWidth]);
-    }
     function size() { W = Math.max(2, Math.round(innerWidth * SC)); H = Math.max(2, Math.round(innerHeight * SC)); cv.width = W; cv.height = H; }
-    function drawHeroSpikes(t) {
-      ctx.save();
-      ctx.globalCompositeOperation = 'screen';
-      HERO_SPIKES.forEach(function (sp, i) {
-        var breath = (Math.sin(t * 1.05 + i * .72) + 1) * .5;
-        var pulse = .76 + breath * .24;
-        var x = (sp[0] + Math.sin(t * .14 + i) * .003) * W;
-        var tip = (1 - sp[1] * pulse) * H, base = H * 1.03;
-        var height = base - tip, width = Math.max(2, W * sp[2]);
-        ctx.globalAlpha = .68 + breath * .32;
-        var beam = ctx.createLinearGradient(0, tip, 0, base);
-        beam.addColorStop(0, 'rgba(255,244,218,0)');
-        beam.addColorStop(.24, 'rgba(255,231,190,.15)');
-        beam.addColorStop(.72, 'rgba(255,221,170,.075)');
-        beam.addColorStop(1, 'rgba(255,232,194,.012)');
-        ctx.shadowColor = 'rgba(255,224,175,.46)';
-        ctx.shadowBlur = 23 + breath * 17;
-        ctx.beginPath();
-        ctx.moveTo(x, tip);
-        ctx.bezierCurveTo(x + width * .16, tip + height * .38, x + width * .23, base - height * .16, x + width * .5, base);
-        ctx.lineTo(x - width * .5, base);
-        ctx.bezierCurveTo(x - width * .23, base - height * .16, x - width * .16, tip + height * .38, x, tip);
-        ctx.closePath();
-        ctx.fillStyle = beam;
-        ctx.fill();
-
-        var core = ctx.createLinearGradient(0, tip, 0, base);
-        core.addColorStop(0, 'rgba(255,248,232,0)');
-        core.addColorStop(.48, 'rgba(255,239,210,.19)');
-        core.addColorStop(1, 'rgba(255,225,186,.05)');
-        ctx.shadowBlur = 8 + breath * 8;
-        ctx.beginPath();
-        ctx.moveTo(x, tip);
-        ctx.lineTo(x + Math.max(1, W * .003), base);
-        ctx.lineTo(x - Math.max(1, W * .003), base);
-        ctx.closePath();
-        ctx.fillStyle = core;
-        ctx.fill();
-
-        var glowRadius = Math.max(18, W * .12);
-        var glow = ctx.createRadialGradient(x, base - 2, 0, x, base - 2, glowRadius);
-        glow.addColorStop(0, 'rgba(255,230,190,.16)');
-        glow.addColorStop(1, 'rgba(255,230,190,0)');
-        ctx.shadowBlur = 0;
-        ctx.fillStyle = glow;
-        ctx.fillRect(x - glowRadius, base - glowRadius, glowRadius * 2, glowRadius);
-      });
-      ctx.globalAlpha = 1;
-      var floor = ctx.createLinearGradient(0, H * .64, 0, H);
-      floor.addColorStop(0, 'rgba(255,230,190,0)');
-      floor.addColorStop(1, 'rgba(255,230,190,.055)');
-      ctx.fillStyle = floor;
-      ctx.fillRect(0, H * .64, W, H * .36);
-      ctx.restore();
-    }
     function draw(ts) {
       var t = ts / 1000, s = scrollY, sid = runFrame.last || 'top';
       var el = runFrame.el, mood = (el && el.getAttribute('data-mood')) || MAP[sid] || 'hero';
+      lastDrawMood = sid;
       target = P[mood];
       var k = reduce ? 1 : 0.05;
       for (var c = 0; c < 3; c++) cur.base[c] = lerp(cur.base[c], target.base[c], k);
@@ -568,29 +490,42 @@
       ctx.globalCompositeOperation = 'source-over';
       ctx.fillStyle = 'rgb(' + Math.round(cur.base[0]) + ',' + Math.round(cur.base[1]) + ',' + Math.round(cur.base[2]) + ')';
       ctx.fillRect(0, 0, W, H);
-      cur.b.forEach(function (bl, i) {
-        var sp = SPOT[i];
-        /* drifts with time and travels across the screen as you scroll */
-        var x = (sp[0] + Math.sin(t * sp[4] + i * 1.7) * sp[2] + Math.sin(s * 0.0011 + i * 1.3) * 0.22) * W;
-        var y = (sp[1] + Math.cos(t * sp[5] + i * 2.3) * sp[3] + Math.cos(s * 0.0008 + i * 0.9) * 0.16) * H;
-        var rad = (0.5 - i * 0.03) * Math.max(W, H);
-        var gr = ctx.createRadialGradient(x, y, 0, x, y, rad);
-        gr.addColorStop(0, 'rgba(' + Math.round(bl[0]) + ',' + Math.round(bl[1]) + ',' + Math.round(bl[2]) + ',' + bl[3].toFixed(3) + ')');
-        gr.addColorStop(1, 'rgba(' + Math.round(bl[0]) + ',' + Math.round(bl[1]) + ',' + Math.round(bl[2]) + ',0)');
-        ctx.fillStyle = gr; ctx.fillRect(0, 0, W, H);
-      });
-      if (mood === 'hero') drawHeroSpikes(t);
+      if (mood !== 'hero') {
+        cur.b.forEach(function (bl, i) {
+          var sp = SPOT[i];
+          /* drifts with time and travels across the screen as you scroll */
+          var x = (sp[0] + Math.sin(t * sp[4] + i * 1.7) * sp[2] + Math.sin(s * 0.0011 + i * 1.3) * 0.22) * W;
+          var y = (sp[1] + Math.cos(t * sp[5] + i * 2.3) * sp[3] + Math.cos(s * 0.0008 + i * 0.9) * 0.16) * H;
+          var rad = (0.5 - i * 0.03) * Math.max(W, H);
+          var gr = ctx.createRadialGradient(x, y, 0, x, y, rad);
+          gr.addColorStop(0, 'rgba(' + Math.round(bl[0]) + ',' + Math.round(bl[1]) + ',' + Math.round(bl[2]) + ',' + bl[3].toFixed(3) + ')');
+          gr.addColorStop(1, 'rgba(' + Math.round(bl[0]) + ',' + Math.round(bl[1]) + ',' + Math.round(bl[2]) + ',0)');
+          ctx.fillStyle = gr; ctx.fillRect(0, 0, W, H);
+        });
+      }
     }
     function loop(ts) {
       if (!vis) { raf = 0; return; }
+      if ((runFrame.last || 'top') === 'top') { raf = 0; return; }
       if (ts - lastT > 33) { lastT = ts; draw(ts); }
       raf = requestAnimationFrame(loop);
     }
     size(); addEventListener('resize', function () { size(); draw(performance.now()); });
-    document.addEventListener('visibilitychange', function () { vis = !document.hidden; if (vis && !raf && !reduce) raf = requestAnimationFrame(loop); });
+    document.addEventListener('visibilitychange', function () { vis = !document.hidden; if (vis && !raf && !reduce && (runFrame.last || 'top') !== 'top') raf = requestAnimationFrame(loop); });
     draw(performance.now());
     if (reduce) { onFrame(function () { draw(performance.now()); }); return; }
     raf = requestAnimationFrame(loop);
+    onFrame(function () {
+      if (!vis || reduce) return;
+      var sectionId = runFrame.last || 'top';
+      if (sectionId === 'top') {
+        if (lastDrawMood !== 'top') draw(performance.now());
+        if (raf) { cancelAnimationFrame(raf); raf = 0; }
+      } else if (!raf) {
+        draw(performance.now());
+        raf = requestAnimationFrame(loop);
+      }
+    });
 
     /* floating shapes: drift on their own and travel up and across as you scroll */
     var fl = $$('.fl'), FD = fl.map(function (el, i) { return { x: [.08,.86,.5,.7,.15,.32,.92,.62][i], y: [.2,.55,.1,.7,.85,.4,.15,.9][i], v: [.35,.6,.9,.25,.5,.75,.4,.65][i], p: i * 1.9 }; });
