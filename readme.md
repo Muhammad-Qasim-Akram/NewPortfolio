@@ -4,6 +4,8 @@ Personal portfolio of **Muhammad Qasim Akram**, a Full Stack Developer and AI En
 
 ![Portfolio homepage](img/portfolio-homepage.png)
 
+![Portfolio hero section](img/hero-screenshot.png)
+
 ## About
 
 This static portfolio presents my background, selected projects, technical skills, services, and contact information. It is built with plain HTML, CSS, and vanilla JavaScript, with no build step or front-end framework.
@@ -17,7 +19,7 @@ This static portfolio presents my background, selected projects, technical skill
 - Contact form powered by EmailJS
 - Built-in portfolio chatbot with preset, local replies and quick commands; it does not connect to an AI model or backend
 - Reduced-motion support
-- Resume, favicon, portfolio screenshot, and project/hero images in the `img/` folder
+- Resume, favicon, project images, and portfolio screenshots in `img/`, with original certificates in `certificates/`
 
 ## Selected projects
 
@@ -43,8 +45,8 @@ This static portfolio presents my background, selected projects, technical skill
 No install or build command is required. Clone the repository and open `index.html` in a browser:
 
 ```bash
-git clone https://github.com/Muhammad-Qasim-Akram/Portfolio3D.git
-cd Portfolio3D
+git clone https://github.com/Muhammad-Qasim-Akram/NewPortfolio.git
+cd NewPortfolio
 ```
 
 The contact form uses EmailJS, so its submission requires a network connection and valid EmailJS configuration. The chatbot works locally using predefined content and commands.
@@ -64,6 +66,12 @@ NewPortfolio/
 ├── case-portfolio.html
 ├── case-studies.css
 ├── readme.md
+├── certificates/
+│   ├── advanced-mysql-topics.pdf
+│   ├── ai-for-everyone.pdf
+│   ├── claude-ai-fluency-for-builders.pdf
+│   ├── python-for-data-science-ai-development.pdf
+│   └── supervised-machine-learning-regression-classification.pdf
 └── img/
     ├── favicon.svg
     ├── chatroom.webp
@@ -71,6 +79,7 @@ NewPortfolio/
     ├── minimal-analysis.webp
     ├── yourown.webp
     ├── portfolio-homepage.png
+    ├── hero-screenshot.png
     ├── Muhammad_Qasim_Akram_Resume.pdf
     └── hero/
         ├── deep.jpg

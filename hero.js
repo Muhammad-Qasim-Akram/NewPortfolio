@@ -40,11 +40,11 @@
   var activeCard = null;
   var visible = true;
   var wheelElapsed = 0;
-  var speed = 1;
-  var titleRollDuration = 2.4;
-  var titleStagger = 0.075;
-  var titleFaceCount = 4;
-  var lastFrame = 0;
+  var speed = 1.9;
+  var titleRollDuration = 1.8;
+  var titleStagger = -0.076;
+  var titleFaceCount = 4.02;
+  var lastFrame = 0 ;
   var frameId = 0;
 
   var projectCards = [
