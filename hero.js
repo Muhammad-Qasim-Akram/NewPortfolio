@@ -2,45 +2,76 @@
   'use strict';
 
   var stage = document.getElementById('portfolioStage');
+  var content = document.getElementById('portfolioContent');
   var word = document.getElementById('portfolioWord');
+  var wrap = document.getElementById('portfolioWrap');
   var wheel = document.getElementById('portfolioWheel');
-  if (!stage || !word || !wheel) return;
+  var cardsContainer = document.getElementById('portfolioCards');
+  var welcome = stage && stage.querySelector('.portfolio-welcome');
+  var description = document.getElementById('portfolioDescription');
+  if (!stage || !content || !word || !wrap || !wheel || !cardsContainer || !welcome || !description) return;
 
-  var projects = [
-    { offset: -4, title: 'Portfolio case study', detail: 'A faster homepage', image: 'img/portfolio-homepage.png', href: 'case-portfolio.html' },
-    { offset: -3, title: 'Minimal Analysis', detail: 'Stock prediction', image: 'img/minimal-analysis.webp', href: 'https://github.com/Muhammad-Qasim-Akram/Stock-Price-Prediction', external: true },
-    { offset: -2, title: 'EyeSpy', detail: 'Computer vision assistant', image: 'img/favicon.svg', icon: true, href: 'https://github.com/Muhammad-Qasim-Akram/EyeSpy', external: true },
-    { offset: -1, contact: true },
-    { offset: 0, title: 'About me', detail: 'Muhammad Qasim Akram', image: 'img/profile.webp', href: '#contact' },
-    { offset: 1, title: 'ChatRoom', detail: 'Real-time systems', image: 'img/chatroom.webp', href: 'case-chatroom.html' },
-    { offset: 2, title: 'DevChat', detail: 'AI for developers', image: 'img/devchat.webp', href: 'https://dev-chat-seven.vercel.app/', external: true },
-    { offset: 3, title: 'yourOwn Store', detail: 'E-commerce platform', image: 'img/yourown.webp', href: 'https://yourown-store.azurewebsites.net/', external: true }
+  var progress = [
+    0, 0, 0, .001, .001, .001, 0, 0, 0, .001, .002, .002, .003, .004, .007,
+    .009, .012, .015, .019, .024, .029, .035, .042, .049, .057, .067, .078,
+    .091, .106, .124, .144, .168, .198, .235, .282, .34, .41, .488, .569,
+    .641, .7, .748, .787, .819, .845, .868, .887, .904, .918, .931, .942,
+    .951, .96, .967, .973, .978, .983, .987, .991, .994, .996, .997, .997,
+    .998, .999, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, .999,
+    .998, .996, .995, .994, .992, .988, .984, .979, .973, .968, .96, .95,
+    .941, .93, .917, .903, .886, .867, .844, .816, .782, .741, .689, .624,
+    .549, .467, .386, .316, .262, .221, .186, .158, .134, .114, .097, .082,
+    .069, .059, .052, .044, .036, .03, .024, .02, .015, .012, .009, .007,
+    .005, .003, .001, .001, .001
   ];
-  var step = 360 / projects.length;
+  var loopDuration = 4.5;
+  var orbitRadius = 284;
+  var angleStep = 30;
   var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var paused = false;
+  var wheelScale = 1;
+  var horizontalScale = 1;
+  var titleMargin = 97;
+  var titleCenterY = 152;
+  var stageCenterX = 348;
+  var hoveredCard = null;
+  var focusedCard = null;
+  var pinnedCard = null;
+  var activeCard = null;
   var visible = true;
-  var elapsed = 0;
+  var wheelElapsed = 0;
+  var speed = 1;
   var lastFrame = 0;
   var frameId = 0;
 
-  function makeContactCard(angle) {
+  var projectCards = [
+    { offset: -4, key: 'face', title: 'Portfolio case study', detail: 'A faster homepage', image: 'img/hero/face.jpg', href: 'case-portfolio.html' },
+    { offset: -3, key: 'deep', title: 'Minimal Analysis', detail: 'Stock prediction', image: 'img/hero/deep.jpg', href: 'https://github.com/Muhammad-Qasim-Akram/Stock-Price-Prediction', external: true },
+    { offset: -2, key: 'devchat', title: 'DevChat', detail: 'AI for developers', image: 'img/devchat.webp', href: 'https://dev-chat-seven.vercel.app/', external: true },
+    { offset: -1, key: 'contact', contact: true },
+    { offset: 0, key: 'portrait', title: 'About me', detail: 'Muhammad Qasim Akram', image: 'img/hero/portrait.jpg', href: '#contact' },
+    { offset: 1, key: 'yourown', title: 'yourOwn Store', detail: 'E-commerce platform', image: 'img/yourown.webp', href: 'https://yourown-store.azurewebsites.net/', external: true },
+    { offset: 2, key: 'orb', title: 'EyeSpy', detail: 'Computer vision assistant', image: 'img/hero/orb.jpg', href: 'https://github.com/Muhammad-Qasim-Akram/EyeSpy', external: true },
+    { offset: 3, key: 'polestar', title: 'ChatRoom', detail: 'Real-time systems', image: 'img/hero/polestar.jpg', href: 'case-chatroom.html' }
+  ];
+
+  function makeContactCard() {
     var card = document.createElement('div');
     card.className = 'portfolio-card portfolio-card-contact';
     card.setAttribute('role', 'listitem');
-    card.setAttribute('aria-label', 'Contact Qasim Akram');
-    card.style.setProperty('--card-angle', angle + 'deg');
+    card.setAttribute('aria-label', 'Contact Muhammad Qasim Akram');
 
     var name = document.createElement('strong');
     name.className = 'portfolio-contact-name';
-    name.appendChild(document.createTextNode('Qasim'));
+    name.appendChild(document.createTextNode('Muhammad'));
     name.appendChild(document.createElement('br'));
-    name.appendChild(document.createTextNode('Akram'));
+    name.appendChild(document.createTextNode('Qasim Akram'));
     card.appendChild(name);
 
     var role = document.createElement('span');
     role.className = 'portfolio-contact-role';
-    role.textContent = 'Full Stack Engineer · AI Engineer';
+    role.appendChild(document.createTextNode('Full Stack Engineer'));
+    role.appendChild(document.createElement('br'));
+    role.appendChild(document.createTextNode('· AI Engineer'));
     card.appendChild(role);
 
     var line = document.createElement('span');
@@ -56,7 +87,8 @@
       var link = document.createElement('a');
       link.className = 'portfolio-contact-link';
       link.href = item.href;
-      link.textContent = item.label;
+      link.setAttribute('aria-label', item.label === 'Email' ? 'Email Qasim at qasimakram46@hotmail.com' : item.label);
+      link.appendChild(document.createTextNode(item.label));
       if (item.href.indexOf('https://') === 0) {
         link.target = '_blank';
         link.rel = 'noopener';
@@ -72,17 +104,31 @@
     return card;
   }
 
-  projects.forEach(function (project, index) {
-    var angle = project.offset * step;
-    var card;
-    if (project.contact) {
-      card = makeContactCard(angle);
-    } else {
-      card = document.createElement('a');
-      card.className = 'portfolio-card';
+  function refreshCards(cards) {
+    activeCard = pinnedCard || hoveredCard || focusedCard;
+    cards.forEach(function (card) {
+      var isActive = card === activeCard;
+      card.classList.toggle('hot', isActive);
+      card.style.setProperty('--s', isActive ? card.dataset.big : 1);
+      card.style.zIndex = isActive ? '50' : card.dataset.z;
+    });
+  }
+
+  var cards = projectCards.map(function (project, index) {
+    var card = project.contact ? makeContactCard() : document.createElement('a');
+    card.classList.add('portfolio-card');
+    card.dataset.z = String(index + 1);
+    card.dataset.big = project.contact ? '1.3' : '1.12';
+    card.style.zIndex = String(index + 1);
+    card.style.transform = 'rotate(' + (project.offset * angleStep) + 'deg) translateY(-' + orbitRadius + 'px) scale(var(--s, 1))';
+
+    if (!project.contact) {
       card.href = project.href;
       card.setAttribute('role', 'listitem');
       card.setAttribute('aria-label', project.title + ': ' + project.detail);
+      if (project.key === 'devchat' || project.key === 'yourown') {
+        card.classList.add('portfolio-card-screenshot');
+      }
       if (project.external) {
         card.target = '_blank';
         card.rel = 'noopener';
@@ -90,35 +136,43 @@
 
       var image = document.createElement('img');
       image.className = 'portfolio-card-image';
+      if (project.key === 'portrait') card.classList.add('portfolio-card-portrait');
       image.src = project.image;
       image.alt = '';
       image.decoding = 'async';
-      if (project.icon) image.classList.add('portfolio-card-icon');
-      if (index === 3) image.fetchPriority = 'high';
+      if (project.key === 'portrait') image.fetchPriority = 'high';
       card.appendChild(image);
-
-      var caption = document.createElement('span');
-      caption.className = 'portfolio-card-caption';
-      var title = document.createElement('b');
-      title.textContent = project.title;
-      var detail = document.createElement('span');
-      detail.textContent = project.detail;
-      caption.appendChild(title);
-      caption.appendChild(detail);
-      card.appendChild(caption);
     }
 
-    card.style.setProperty('--card-angle', angle + 'deg');
-    card.addEventListener('pointerenter', function () { paused = true; });
-    card.addEventListener('pointerleave', function () { paused = false; });
-    card.addEventListener('focusin', function () { paused = true; });
-    card.addEventListener('focusout', function (event) {
-      if (!card.contains(event.relatedTarget)) paused = false;
+    card.addEventListener('pointerenter', function () {
+      hoveredCard = card;
+      refreshCards(cards);
     });
-    wheel.appendChild(card);
+    card.addEventListener('pointerleave', function () {
+      if (hoveredCard === card) hoveredCard = null;
+      refreshCards(cards);
+    });
+    card.addEventListener('focusin', function () {
+      focusedCard = card;
+      refreshCards(cards);
+    });
+    card.addEventListener('focusout', function (event) {
+      if (!card.contains(event.relatedTarget) && focusedCard === card) {
+        focusedCard = null;
+        refreshCards(cards);
+      }
+    });
+    card.addEventListener('click', function (event) {
+      if (event.target.closest('a')) return;
+      pinnedCard = pinnedCard === card ? null : card;
+      refreshCards(cards);
+    });
+
+    cardsContainer.appendChild(card);
+    return card;
   });
 
-  'PORTFOLIO'.split('').forEach(function (character) {
+  'PORTFOLIO'.split('').forEach(function (character, index) {
     var letter = document.createElement('span');
     letter.className = 'portfolio-letter';
 
@@ -129,47 +183,139 @@
 
     var cube = document.createElement('span');
     cube.className = 'portfolio-letter-cube';
+    cube.style.animationDelay = (-index * .475) + 's';
     for (var faceIndex = 0; faceIndex < 4; faceIndex += 1) {
       var face = document.createElement('b');
       face.className = 'portfolio-letter-face ' + (faceIndex % 2 ? 'outline' : 'solid');
       face.textContent = character;
-      face.style.transform = 'rotateX(' + (faceIndex * 90) + 'deg) translateZ(var(--portfolio-letter-depth, 28px))';
+      face.style.transform = 'rotateX(' + (faceIndex * 90) + 'deg) translateZ(28px)';
       cube.appendChild(face);
     }
     letter.appendChild(cube);
     word.appendChild(letter);
   });
 
-  function fit() {
-    var heading = document.querySelector('.portfolio-heading');
+  function fitWord() {
     var placeholders = word.querySelectorAll('.portfolio-letter-placeholder');
-    var width = 0;
+    var totalWidth = 0;
     placeholders.forEach(function (placeholder) {
-      width += placeholder.getBoundingClientRect().width;
+      totalWidth += placeholder.offsetWidth;
     });
-    if (width > 0 && heading) {
-      var fontSize = parseFloat(window.getComputedStyle(heading).fontSize);
-      heading.style.setProperty('--portfolio-letter-depth', (fontSize / 2) + 'px');
-      heading.style.setProperty('--portfolio-word-scale', Math.min(1, heading.clientWidth / width));
-    }
+    if (totalWidth < 10) return;
+
+    var width = stage.offsetWidth;
+    var scale = horizontalScale >= 1 ? 1 + (horizontalScale - 1) * .42 : 1;
+    scale = Math.min(scale, (width - 2 * titleMargin) / 500) * .75;
+    wrap.style.left = (stageCenterX - 250 * scale) + 'px';
+    wrap.style.top = (titleCenterY - 12) + 'px';
+    welcome.style.top = (titleCenterY - 45) + 'px';
+    wrap.style.transform = 'scale(' + scale + ') scaleX(' + (500 / totalWidth) + ')';
   }
 
-  function update(time) {
-    var turn = reducedMotion ? 0 : (1 - Math.cos(time * Math.PI * 2 / 9)) * step / 2;
-    wheel.style.transform = 'rotate(' + turn + 'deg)';
-    word.querySelectorAll('.portfolio-letter-cube').forEach(function (cube, index) {
-      var angle = time * 80 + index * 38;
-      var skew = -9 + 9 * Math.sin(time * 1.4 + index * .7);
-      cube.style.transform = 'rotateX(' + angle + 'deg) skewX(' + skew + 'deg)';
+  function fit() {
+    var viewportWidth = document.documentElement.clientWidth || window.innerWidth;
+    var viewportHeight = window.innerHeight;
+    var stageScale = viewportHeight / 744;
+    var width = viewportWidth / stageScale;
+    var height = 744;
+
+    if (width < 440) {
+      stageScale = viewportWidth / 440;
+      width = 440;
+      height = viewportHeight / stageScale;
+    }
+
+    horizontalScale = width / 696;
+    var mobileScale = Math.max(0, Math.min(1, (horizontalScale - .63) / .37));
+    var barScale = horizontalScale < 1 ? .75 + .25 * mobileScale : 1;
+    wheelScale = horizontalScale >= 1 ? 1 + (horizontalScale - 1) * .38 : .86 + .14 * mobileScale;
+    titleMargin = horizontalScale >= 1 ? 97 * horizontalScale : 24 + (97 * horizontalScale - 24) * mobileScale;
+    var extraHeight = Math.max(0, height - 744);
+
+    stage.style.width = width + 'px';
+    stage.style.height = height + 'px';
+    stage.style.transform = 'scale(' + stageScale + ')';
+    content.style.top = (extraHeight * .35) + 'px';
+
+    var centerX = width / 2 + (window.innerWidth - viewportWidth) / (2 * stageScale);
+    stageCenterX = centerX;
+    var barHeight = 228 * barScale;
+    var barBottom = 40 + barHeight;
+    titleCenterY = 40 + barHeight / 2 - 2;
+    stage.style.setProperty('--m', titleMargin + 'px');
+    stage.style.setProperty('--cx', centerX + 'px');
+    stage.style.setProperty('--bk', barScale);
+
+    var crossPositions = {
+      L: horizontalScale < 1 ? 12 : 26,
+      M1: centerX - 92 * (horizontalScale < 1 ? barScale : horizontalScale),
+      M2: centerX + 92 * (horizontalScale < 1 ? barScale : horizontalScale),
+      R: width - (horizontalScale < 1 ? 14 : 29)
+    };
+    stage.querySelectorAll('.portfolio-cross').forEach(function (cross) {
+      cross.style.left = crossPositions[cross.dataset.x] + 'px';
+      cross.style.top = (cross.dataset.y === 'B' ? barBottom : 40) + 'px';
     });
+
+    var triangleTop = titleCenterY - 5;
+    var triangleInset = horizontalScale < 1 ? 10 : 25;
+    document.getElementById('portfolioTriangleLeft').style.top = triangleTop + 'px';
+    document.getElementById('portfolioTriangleRight').style.top = triangleTop + 'px';
+    document.getElementById('portfolioTriangleLeft').style.left = triangleInset + 'px';
+    document.getElementById('portfolioTriangleRight').style.right = triangleInset + 'px';
+
+    document.getElementById('portfolioName').style.top = (barBottom - 6) + 'px';
+    var role = document.getElementById('portfolioRole');
+    role.style.top = (barBottom - 6) + 'px';
+    if (width < 560) {
+      role.style.right = 'auto';
+      role.style.left = titleMargin + 'px';
+      role.style.top = (barBottom + 7) + 'px';
+      description.style.top = (barBottom + 30) + 'px';
+      description.style.left = titleMargin + 'px';
+      description.style.right = 'auto';
+      description.style.width = (width - 2 * titleMargin) + 'px';
+      description.style.textAlign = 'left';
+      description.style.transform = 'none';
+    } else {
+      role.style.left = 'auto';
+      role.style.right = (titleMargin - 1) + 'px';
+      description.style.top = (barBottom + 16) + 'px';
+      description.style.left = 'auto';
+      description.style.right = (titleMargin - 1) + 'px';
+      description.style.width = Math.min(520, width - 2 * titleMargin) + 'px';
+      description.style.textAlign = 'right';
+      description.style.transform = 'none';
+    }
+
+    wheel.style.top = (barBottom + 227 + orbitRadius * wheelScale + extraHeight * .3) + 'px';
+    fitWord();
+  }
+
+  var lastWheelTransform = '';
+
+  function update(wheelTime) {
+    var position = (wheelTime % loopDuration) * 30;
+    var firstIndex = Math.floor(position) % progress.length;
+    var nextIndex = (firstIndex + 1) % progress.length;
+    var fraction = position - Math.floor(position);
+    var turn = progress[firstIndex] + (progress[nextIndex] - progress[firstIndex]) * fraction;
+    var transform = 'scale(' + wheelScale + ') rotate(' + (angleStep * turn) + 'deg)';
+    if (transform !== lastWheelTransform) {
+      wheel.style.transform = transform;
+      lastWheelTransform = transform;
+    }
   }
 
   function draw(now) {
     frameId = 0;
     var delta = lastFrame ? Math.min(.05, (now - lastFrame) / 1000) : 0;
     lastFrame = now;
-    if (!paused) elapsed += delta;
-    update(elapsed);
+    var targetSpeed = activeCard ? 0 : 1;
+    speed += (targetSpeed - speed) * Math.min(1, delta * 9);
+    if (speed < .003 && activeCard) speed = 0;
+    wheelElapsed += delta * speed;
+    update(wheelElapsed);
     if (!reducedMotion && visible && !document.hidden) {
       frameId = window.requestAnimationFrame(draw);
     }
@@ -197,15 +343,17 @@
 
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(function (entries) {
-      visible = entries.some(function (entry) { return entry.isIntersecting; });
+      visible = entries.some(function (entry) { return entry.isIntersecting && entry.intersectionRatio >= .1; });
+      stage.parentElement.classList.toggle('portfolio-visible', visible);
       if (visible) start();
       else stop();
-    }).observe(document.getElementById('top'));
+    }, { threshold: .1 }).observe(document.getElementById('top'));
   }
 
   if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(fit);
+    document.fonts.ready.then(fitWord);
   }
   fit();
+  window.setTimeout(fitWord, 300);
   start();
 }());
