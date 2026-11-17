@@ -1,4 +1,4 @@
-/* case study pages: extends d.css */
+/* Case study pages extend the shared site styles. */
 .case-hero{min-height:88svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:120px 24px 60px}
 .case-hero>*{position:relative;z-index:1}
 .case-hero .kick{font-size:14px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--slate);margin:0 0 18px}

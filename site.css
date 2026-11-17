@@ -123,6 +123,10 @@ h3{font-weight:700;letter-spacing:-.03em}
 .card:hover h3,.card:focus-visible h3{color:var(--red)}
 .card:hover p,.card:focus-visible p{color:var(--ink)}
 .card:hover .more,.card:focus-visible .more{color:#8F2B20;transform:translateX(4px)}
+#highlights .card{position:relative;border:1px solid transparent}
+#highlights .card:hover,#highlights .card:focus-visible{transform:translateY(-2px);border-color:rgba(192,57,43,.28);box-shadow:0 14px 30px rgba(0,0,0,.08)}
+#highlights .card h3{transition:color .25s}
+#highlights .card:hover h3,#highlights .card:focus-visible h3{color:var(--red)}
 
 /* chatroom demo */
 .cr-stage{position:relative;height:520px;max-width:900px;margin:30px auto 10px;perspective:2200px;touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none}
@@ -177,6 +181,13 @@ h3{font-weight:700;letter-spacing:-.03em}
 .tbl tbody tr:hover>:first-child,.tbl tbody tr:focus-within>:first-child{color:var(--red);box-shadow:inset 3px 0 0 var(--red)}
 .tbl a{color:var(--red);font-weight:600;transition:color .25s}
 .tbl a:hover,.tbl tbody tr:focus-within a{color:#8F2B20;text-decoration:underline}
+#compare .tbl tbody tr:hover>*,#compare .tbl tbody tr:focus-within>*{background-color:transparent;color:inherit;border-bottom-color:rgba(192,57,43,.18)}
+#compare .tbl tbody tr:hover>th,#compare .tbl tbody tr:focus-within>th{color:var(--red);box-shadow:none}
+#compare .tbl tbody td:hover,#compare .tbl tbody td:focus-within{background-color:rgba(192,57,43,.035);box-shadow:inset 0 -1px 0 rgba(192,57,43,.3)}
+@supports (-webkit-text-stroke: .75px red){
+  #highlights .card:hover h3,#highlights .card:focus-visible h3{color:transparent;-webkit-text-stroke:1px var(--red)}
+  #compare .tbl tbody tr:hover>th,#compare .tbl tbody tr:focus-within>th{color:transparent;-webkit-text-stroke:1px var(--red)}
+}
 
 /* specs */
 .specs>div{position:relative;display:grid;grid-template-columns:minmax(130px,260px) minmax(0,1fr);gap:8px 32px;padding:22px 0;border-bottom:1px solid var(--line);transition:background-color .35s,border-color .35s,transform .4s cubic-bezier(.22,1,.36,1)}
@@ -189,6 +200,18 @@ h3{font-weight:700;letter-spacing:-.03em}
 .specs dd{font-size:19px;line-height:1.5}
 .specs>div:hover dt{color:var(--red)}
 .specs>div:hover dd{color:var(--ink)}
+#specs .specs>div{transform:none;transition:background-color .28s,border-color .28s}
+#specs .specs>div::before{inset:auto 0 -1px;height:1px;opacity:1;background:linear-gradient(90deg,var(--red),rgba(192,57,43,0));transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.22,1,.36,1)}
+#specs .specs>div:hover,#specs .specs>div:focus-within{background-color:rgba(255,255,255,.42);border-bottom-color:rgba(192,57,43,.18);transform:none}
+#specs .specs>div:hover::before,#specs .specs>div:focus-within::before{transform:scaleX(1)}
+#specs .specs>div:hover dt,#specs .specs>div:focus-within dt{color:var(--red)}
+#specs .specs dt{transition:color .25s}
+@supports (-webkit-text-stroke: .75px red){
+  #specs .specs>div:hover dt,#specs .specs>div:focus-within dt{color:transparent;-webkit-text-stroke:1px var(--red)}
+}
+@media (prefers-reduced-motion:reduce){
+  #highlights .card,#highlights .card h3,#compare .tbl tbody tr>*,#specs .specs>div,#specs .specs>div::before,#specs .specs dt{transition:none}
+}
 
 /* responsive */
 @media (max-width:900px){

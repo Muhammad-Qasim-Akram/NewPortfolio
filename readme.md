@@ -17,7 +17,7 @@ This static portfolio presents my background, selected projects, technical skill
 - Contact form powered by EmailJS
 - Built-in portfolio chatbot with preset, local replies and quick commands; it does not connect to an AI model or backend
 - Reduced-motion support
-- Resume, favicon, and social sharing image in the `img/` folder
+- Resume, favicon, portfolio screenshot, and project/hero images in the `img/` folder
 
 ## Selected projects
 
@@ -52,18 +52,30 @@ The contact form uses EmailJS, so its submission requires a network connection a
 ## Project structure
 
 ```text
-Portfolio3D/
+NewPortfolio/
 ├── index.html
-├── style.css
-├── script.js
+├── site.css
+├── site-interactions.js
+├── contact-chatbot.css
+├── chatbot.js
+├── hero.css
+├── hero.js
+├── case-chatroom.html
+├── case-portfolio.html
+├── case-studies.css
 ├── readme.md
-├── sitemap.xml
-├── robots.txt
 └── img/
     ├── favicon.svg
-    ├── og-image.png
+    ├── devchat.webp
+    ├── yourown.webp
     ├── portfolio-homepage.png
-    └── Muhammad_Qasim_Akram_Resume.pdf
+    ├── Muhammad_Qasim_Akram_Resume.pdf
+    └── hero/
+        ├── deep.jpg
+        ├── face.jpg
+        ├── orb.jpg
+        ├── polestar.jpg
+        └── portrait.jpg
 ```
 
 ## Contact
