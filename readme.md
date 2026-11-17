@@ -44,8 +44,8 @@ This static portfolio presents my background, selected projects, technical skill
 No install or build command is required. Clone the repository and open `index.html` in a browser:
 
 ```bash
-git clone https://github.com/Muhammad-Qasim-Akram/NewPortfolio.git
-cd NewPortfolio
+git clone https://github.com/Muhammad-Qasim-Akram/Portfolio.git
+cd Portfolio
 ```
 
 The contact form uses EmailJS, so its submission requires a network connection and valid EmailJS configuration. The chatbot works locally using predefined content and commands.
@@ -53,7 +53,7 @@ The contact form uses EmailJS, so its submission requires a network connection a
 ## Project structure
 
 ```text
-NewPortfolio/
+Portfolio/
 ├── index.html
 ├── site.css
 ├── site-interactions.js
