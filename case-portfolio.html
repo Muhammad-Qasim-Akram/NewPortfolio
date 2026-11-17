@@ -5,15 +5,35 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#ffffff">
 <meta name="robots" content="index, follow">
-<title>Performance case study | Qasim Akram</title>
-<meta name="description" content="Qasim Akram, full stack developer and AI engineer. How I measured and fixed the slow parts of my own portfolio.">
+<meta name="robots" content="max-image-preview:large">
+<title>Portfolio Performance Case Study | Qasim Akram</title>
+<meta name="description" content="See how I measured and improved my portfolio's performance, from reducing page weight to fixing an inefficient hover effect.">
+<link rel="canonical" href="https://qasimakram.vercel.app/case-portfolio">
 <meta name="author" content="Muhammad Qasim Akram">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Portfolio performance case study | Qasim Akram">
 <meta property="og:description" content="A practical performance audit with an interactive frame meter and reproductions of the fixes.">
-<meta name="twitter:card" content="summary">
+<meta property="og:url" content="https://qasimakram.vercel.app/case-portfolio">
+<meta property="og:image" content="https://qasimakram.vercel.app/img/og.jpg">
+<meta property="og:image:alt" content="Qasim Akram portfolio preview">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Portfolio performance case study | Qasim Akram">
 <meta name="twitter:description" content="See what blur costs and how I fixed a card hover loop.">
+<meta name="twitter:image" content="https://qasimakram.vercel.app/img/og.jpg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Making This Site Fast",
+  "author": {
+    "@type": "Person",
+    "name": "Muhammad Qasim Akram"
+  },
+  "datePublished": "2025-10-18",
+  "url": "https://qasimakram.vercel.app/case-portfolio"
+}
+</script>
 <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,7 +49,7 @@
 
 <header class="nav" id="nav">
   <div class="pill" id="pill">
-    <a class="brand" href="index.html" aria-label="Qasim Akram, home"><i class="mark">Q</i><span>Qasim Akram</span></a>
+    <a class="brand" href="/" aria-label="Qasim Akram, home"><i class="mark">Q</i><span>Qasim Akram</span></a>
     <nav class="menu" id="menu" aria-label="Sections">
       <span class="ind" id="ind" aria-hidden="true"></span>
 <a href="#story">Story</a>
@@ -41,19 +61,19 @@
       <div class="pop" id="reachPop" role="menu" hidden>
         <a role="menuitem" href="https://wa.me/923126442266" target="_blank" rel="noopener"><b>WhatsApp</b><span>+92 312 6442266</span></a>
         <a role="menuitem" href="mailto:qasimakram46@hotmail.com"><b>Email</b><span>qasimakram46@hotmail.com</span></a>
-        <a role="menuitem" href="https://www.linkedin.com/in/qasimakram/" target="_blank" rel="noopener"><b>LinkedIn</b><span>/in/qasimakram</span></a>
-        <a role="menuitem" href="https://github.com/Muhammad-Qasim-Akram" target="_blank" rel="noopener"><b>GitHub</b><span>Muhammad-Qasim-Akram</span></a>
+        <a role="menuitem" href="https://www.linkedin.com/in/qasimakram/" target="_blank" rel="me noopener"><b>LinkedIn</b><span>/in/qasimakram</span></a>
+        <a role="menuitem" href="https://github.com/Muhammad-Qasim-Akram" target="_blank" rel="me noopener"><b>GitHub</b><span>Muhammad-Qasim-Akram</span></a>
         <a role="menuitem" href="img/Muhammad_Qasim_Akram_Resume.pdf"><b>Resume</b><span>PDF</span></a>
       </div>
     </div>
     <button class="burger" id="burger" aria-expanded="false" aria-controls="sheet" aria-label="Open menu"><span></span><span></span></button>
   </div>
   <div class="sheet" id="sheet" hidden>
-    <nav aria-label="Sections"><a href="index.html">Home</a><a href="#story">Story</a><a href="#lab">Live lab</a><a href="#results">Results</a><a href="#contact">Contact</a></nav>
+    <nav aria-label="Sections"><a href="/">Home</a><a href="#story">Story</a><a href="#lab">Live lab</a><a href="#results">Results</a><a href="#contact">Contact</a></nav>
     <div class="sheet-links">
       <a href="https://wa.me/923126442266" target="_blank" rel="noopener">WhatsApp</a>
-      <a href="https://www.linkedin.com/in/qasimakram/" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://github.com/Muhammad-Qasim-Akram" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/qasimakram/" target="_blank" rel="me noopener">LinkedIn</a>
+      <a href="https://github.com/Muhammad-Qasim-Akram" target="_blank" rel="me noopener">GitHub</a>
       <a href="mailto:qasimakram46@hotmail.com">Email</a>
     </div>
   </div>
@@ -115,7 +135,7 @@
 <section class="sec center" id="results" data-mood="warm">
   <div class="wrap"><p class="chap">Chapter 3</p><h2 class="big">What changed.</h2></div>
   <ul class="facts" style="margin-top:36px"><li data-r="up"><b>704 KB to 30 KB</b><span>Home page HTML, measured between two commits</span></li><li data-r="up"><b>Blur on 2</b><span>Instead of every card</span></li><li data-r="up"><b>Touch + reduced motion</b><span>For every hover effect</span></li></ul>
-  <div class="xlinks"><a href="case-chatroom.html"><b>Case study 01</b><span>ChatRoom, a message from keyboard to room</span></a><a href="index.html#highlights"><b>Back to the home page</b><span>All projects and the stack</span></a></div>
+  <div class="xlinks"><a href="/case-chatroom"><b>ChatRoom case study</b><span>A message from keyboard to room</span></a><a href="/#highlights"><b>Back to the home page</b><span>All projects and the stack</span></a></div>
 </section>
 
 <!-- CONTACT -->
@@ -126,12 +146,12 @@
     <div class="row c">
       <a class="btn red" href="mailto:qasimakram46@hotmail.com">Email me</a>
       <a class="btn line" href="img/Muhammad_Qasim_Akram_Resume.pdf">Download resume</a>
-      <a class="btn line" href="https://github.com/Muhammad-Qasim-Akram" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn line" href="https://github.com/Muhammad-Qasim-Akram" target="_blank" rel="me noopener">GitHub</a>
     </div>
     <ul class="social" aria-label="Find me elsewhere">
       <li><a href="https://wa.me/923126442266" target="_blank" rel="noopener">WhatsApp</a></li>
-      <li><a href="https://www.linkedin.com/in/qasimakram/" target="_blank" rel="noopener">LinkedIn</a></li>
-      <li><a href="https://github.com/Muhammad-Qasim-Akram" target="_blank" rel="noopener">GitHub</a></li>
+      <li><a href="https://www.linkedin.com/in/qasimakram/" target="_blank" rel="me noopener">LinkedIn</a></li>
+      <li><a href="https://github.com/Muhammad-Qasim-Akram" target="_blank" rel="me noopener">GitHub</a></li>
       <li><a href="mailto:qasimakram46@hotmail.com">Email</a></li>
     </ul>
     <p class="foot">Qasim Akram. Bahawalpur, Pakistan. BS Computer Science, Islamia University of Bahawalpur.</p>

@@ -98,7 +98,7 @@
       link.appendChild(document.createTextNode(item.label));
       if (item.href.indexOf('https://') === 0) {
         link.target = '_blank';
-        link.rel = 'noopener';
+        link.rel = item.label === 'GitHub' || item.label === 'LinkedIn' ? 'me noopener' : 'noopener';
       }
 
       var arrow = document.createElement('span');
@@ -145,7 +145,10 @@
       image.className = 'portfolio-card-image';
       if (project.key === 'portrait') card.classList.add('portfolio-card-portrait');
       image.src = project.image;
-      image.alt = '';
+      image.alt = project.key === 'portrait' ? 'Portrait of Muhammad Qasim Akram' : project.title + ' project preview';
+      image.width = 328;
+      image.height = 460;
+      image.loading = project.key === 'portrait' ? 'eager' : 'lazy';
       image.decoding = 'async';
       if (project.key === 'portrait') image.fetchPriority = 'high';
       card.appendChild(image);
