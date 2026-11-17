@@ -32,6 +32,7 @@
   var horizontalScale = 1;
   var titleMargin = 97;
   var titleCenterY = 152;
+  var mobileTextOffset = 0;
   var stageCenterX = 348;
   var hoveredCard = null;
   var focusedCard = null;
@@ -207,8 +208,8 @@
     var scale = horizontalScale >= 1 ? 1 + (horizontalScale - 1) * .42 : 1;
     scale = Math.min(scale, (width - 2 * titleMargin) / 500) * .75;
     wrap.style.left = (stageCenterX - 250 * scale) + 'px';
-    wrap.style.top = (titleCenterY - 12) + 'px';
-    welcome.style.top = (titleCenterY - 45) + 'px';
+    wrap.style.top = (titleCenterY - 12 + mobileTextOffset) + 'px';
+    welcome.style.top = (titleCenterY - 45 + mobileTextOffset) + 'px';
     wrap.style.transform = 'scale(' + scale + ') scaleX(' + (500 / totalWidth) + ')';
   }
 
@@ -224,6 +225,7 @@
       width = 440;
       height = viewportHeight / stageScale;
     }
+    mobileTextOffset = width < 560 ? 15 / stageScale : 0;
 
     horizontalScale = width / 696;
     var mobileScale = Math.max(0, Math.min(1, (horizontalScale - .63) / .37));
@@ -264,14 +266,14 @@
     document.getElementById('portfolioTriangleLeft').style.left = triangleInset + 'px';
     document.getElementById('portfolioTriangleRight').style.right = triangleInset + 'px';
 
-    document.getElementById('portfolioName').style.top = (barBottom - 6) + 'px';
+    document.getElementById('portfolioName').style.top = (barBottom - 6 + mobileTextOffset) + 'px';
     var role = document.getElementById('portfolioRole');
-    role.style.top = (barBottom - 6) + 'px';
+    role.style.top = (barBottom - 6 + mobileTextOffset) + 'px';
     if (width < 560) {
       role.style.right = 'auto';
       role.style.left = titleMargin + 'px';
-      role.style.top = (barBottom + 7) + 'px';
-      description.style.top = (barBottom + 30) + 'px';
+      role.style.top = (barBottom + 7 + mobileTextOffset) + 'px';
+      description.style.top = (barBottom + 30 + mobileTextOffset) + 'px';
       description.style.left = titleMargin + 'px';
       description.style.right = 'auto';
       description.style.width = (width - 2 * titleMargin) + 'px';
@@ -280,7 +282,7 @@
     } else {
       role.style.left = 'auto';
       role.style.right = (titleMargin - 1) + 'px';
-      description.style.top = (barBottom + 16) + 'px';
+      description.style.top = (barBottom + 16 + mobileTextOffset) + 'px';
       description.style.left = 'auto';
       description.style.right = (titleMargin - 1) + 'px';
       description.style.width = Math.min(520, width - 2 * titleMargin) + 'px';

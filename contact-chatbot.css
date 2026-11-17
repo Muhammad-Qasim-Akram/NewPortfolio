@@ -173,18 +173,16 @@
   flex-direction: column;
   width: min(370px, calc(100vw - 32px));
   height: min(590px, 80vh);
-  max-height: 80vh;
+  max-height: calc(100vh - 106px);
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, .58);
-  border-radius: 20px;
-  background: linear-gradient(145deg, rgba(255, 255, 255, .82), rgba(248, 247, 248, .68));
-  -webkit-backdrop-filter: saturate(180%) blur(24px);
-  backdrop-filter: saturate(180%) blur(24px);
-  box-shadow: 0 24px 64px rgba(20, 16, 16, .24), 0 0 0 1px rgba(192, 57, 43, .06);
-  transform: translateY(10px) scale(.97);
+  border: 1px solid rgba(17, 17, 19, .82);
+  border-radius: 18px;
+  background: #f3f3f1;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, .28);
+  transform: translateY(12px) scale(.97);
   transform-origin: bottom right;
   opacity: 0;
-  transition: transform .22s ease, opacity .18s ease;
+  transition: transform .36s cubic-bezier(.22, 1, .36, 1), opacity .24s ease;
 }
 
 .qbot-panel.qbot-open {
@@ -198,14 +196,25 @@
 }
 
 .qbot-header {
+  position: relative;
   display: flex;
   flex: 0 0 auto;
   align-items: center;
   justify-content: space-between;
   padding: 14px 16px;
-  border-bottom: 1px solid rgba(255, 255, 255, .08);
-  background: linear-gradient(115deg, rgba(20, 20, 22, .97), rgba(48, 34, 34, .94));
+  border-bottom: 1px solid rgba(255, 255, 255, .14);
+  background: #111113;
   color: var(--dark-text);
+}
+
+.qbot-header::after {
+  position: absolute;
+  bottom: -1px;
+  left: 16px;
+  width: 52px;
+  height: 2px;
+  background: var(--red);
+  content: "";
 }
 
 .qbot-heading {
@@ -217,14 +226,17 @@
 .qbot-avatar {
   width: 38px;
   height: 38px;
-  border: 1px solid rgba(242, 161, 151, .35);
-  border-radius: var(--r);
-  background: #fff;
+  border: 1px solid rgba(192, 57, 43, .65);
+  border-radius: 10px;
+  background: #111113;
 }
 
 .qbot-title {
   margin: 0;
-  font-size: 17px;
+  font-family: "Syncopate", Inter, sans-serif;
+  font-size: 13px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
 }
 
 .qbot-status-label {
@@ -232,16 +244,17 @@
   align-items: center;
   gap: 7px;
   margin-top: 2px;
-  color: var(--dark-dim);
-  font-size: 12px;
+  color: #b6b6ba;
+  font-size: 10px;
+  letter-spacing: .04em;
 }
 
 .qbot-status {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #4ade80;
-  box-shadow: 0 0 0 4px rgba(74, 222, 128, .12);
+  background: var(--red);
+  box-shadow: 0 0 0 4px rgba(192, 57, 43, .18);
 }
 
 .qbot-close,
@@ -254,14 +267,15 @@
 .qbot-close {
   width: 36px;
   height: 36px;
-  border: 1px solid rgba(255, 255, 255, .16);
-  border-radius: var(--r);
+  border: 1px solid rgba(255, 255, 255, .2);
+  border-radius: 10px;
   color: var(--dark-text);
   font-size: 24px;
 }
 
 .qbot-close:hover {
-  background: rgba(255, 255, 255, .12);
+  border-color: rgba(242, 161, 151, .65);
+  background: rgba(192, 57, 43, .2);
 }
 
 .qbot-messages {
@@ -271,6 +285,7 @@
   gap: 10px;
   min-height: 100px;
   padding: 16px 14px 10px;
+  background: #f3f3f1;
   overflow-y: auto;
   overscroll-behavior: contain;
 }
@@ -288,18 +303,19 @@
 
 .qbot-bot {
   align-self: flex-start;
-  border: 1px solid rgba(0, 0, 0, .08);
+  border: 1px solid rgba(17, 17, 19, .1);
   border-top-left-radius: 4px;
-  background: rgba(255, 255, 255, .78);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, .045);
+  background: #fff;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, .055);
 }
 
 .qbot-user {
   align-self: flex-end;
+  border-right: 3px solid var(--red);
   border-top-right-radius: 4px;
-  background: linear-gradient(135deg, #C0392B, #A93226);
-  color: var(--dark-text);
-  box-shadow: 0 5px 16px rgba(192, 57, 43, .18);
+  background: #111113;
+  color: #fff;
+  box-shadow: 0 5px 16px rgba(0, 0, 0, .15);
 }
 
 .qbot-link {
@@ -321,7 +337,7 @@
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: var(--slate);
+  background: var(--red);
   animation: qbot-dot .85s ease-in-out infinite;
 }
 
@@ -339,21 +355,22 @@
 
 .qbot-suggestion,
 .qbot-chip {
-  border: 1px solid rgba(192, 57, 43, .28);
-  border-radius: var(--r);
+  border: 1px solid rgba(17, 17, 19, .22);
+  border-radius: 8px;
   padding: 7px 10px;
-  background: rgba(255, 255, 255, .56);
-  color: var(--red);
+  background: #fff;
+  color: var(--ink);
   font-size: 12px;
   font-weight: 600;
-  transition: background-color .18s, border-color .18s, transform .18s;
+  transition: background-color .24s, border-color .24s, color .24s, transform .24s;
 }
 
 .qbot-suggestion:hover,
 .qbot-chip:hover {
   transform: translateY(-1px);
-  border-color: rgba(192, 57, 43, .55);
-  background: rgba(192, 57, 43, .1);
+  border-color: #111113;
+  background: #111113;
+  color: #fff;
 }
 
 .qbot-chips {
@@ -370,20 +387,18 @@
   align-items: center;
   gap: 8px;
   padding: 10px 12px;
-  border-top: 1px solid rgba(0, 0, 0, .08);
-  background: rgba(245, 245, 247, .62);
-  -webkit-backdrop-filter: blur(16px);
-  backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(17, 17, 19, .12);
+  background: #fff;
 }
 
 .qbot-input {
   width: 100%;
   min-width: 0;
   height: 42px;
-  border: 1px solid rgba(0, 0, 0, .12);
-  border-radius: var(--r);
+  border: 1px solid rgba(17, 17, 19, .2);
+  border-radius: 10px;
   padding: 0 12px;
-  background: rgba(255, 255, 255, .84);
+  background: #fff;
   color: var(--ink);
   font: inherit;
 }
@@ -391,16 +406,18 @@
 .qbot-send {
   width: 42px;
   height: 42px;
-  border-radius: var(--r);
-  background: var(--red);
+  border: 1px solid #111113;
+  border-radius: 10px;
+  background: #111113;
   color: var(--white);
   font-size: 20px;
-  transition: transform .18s, background-color .18s;
+  transition: transform .24s, background-color .24s, border-color .24s;
 }
 
 .qbot-send:hover {
   transform: translateY(-1px);
-  background: #A93226;
+  border-color: var(--red);
+  background: var(--red);
 }
 
 .qbot-launcher {
@@ -411,24 +428,29 @@
   gap: 9px;
   min-height: 52px;
   padding: 0 18px;
-  border: 1px solid rgba(255, 255, 255, .38);
+  border: 1px solid rgba(255, 255, 255, .56);
   border-radius: 12px;
-  background: rgba(192, 57, 43, .9);
-  -webkit-backdrop-filter: saturate(160%) blur(12px);
-  backdrop-filter: saturate(160%) blur(12px);
-  box-shadow: 0 10px 28px rgba(128, 48, 39, .3);
+  background: #111113;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, .28);
   color: var(--white);
   font-size: 14px;
   font-weight: 700;
-  transition: transform .2s ease, background .2s ease;
+  transition: transform .3s cubic-bezier(.22, 1, .36, 1), background-color .25s, border-color .25s;
 }
 
 .qbot-launcher:hover {
   transform: translateY(-2px);
-  background: rgba(169, 50, 38, .96);
+  border-color: var(--coral);
+  background: var(--red);
 }
 
 .qbot-launcher-icon {
+  display: grid;
+  width: 25px;
+  height: 25px;
+  place-items: center;
+  border: 1px solid rgba(242, 161, 151, .55);
+  border-radius: 50%;
   color: var(--coral);
   font-size: 16px;
 }
@@ -451,7 +473,7 @@
 .qbot-chip:focus-visible,
 .qbot-suggestion:focus-visible,
 .qbot-input:focus-visible {
-  outline: 3px solid #2D6CDF;
+  outline: 3px solid var(--red);
   outline-offset: 3px;
 }
 
@@ -481,6 +503,7 @@
     bottom: 68px;
     width: calc(100vw - 28px);
     height: min(590px, 80vh);
+    max-height: calc(100vh - 96px);
   }
 
   .qbot-launcher {
@@ -491,6 +514,7 @@
 @media (prefers-reduced-motion: reduce) {
   .contact-progress.sending,
   .qbot-panel,
+  .qbot-header::after,
   .qbot-message,
   .qbot-typing span,
   .qbot-launcher {
