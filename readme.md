@@ -66,7 +66,9 @@ NewPortfolio/
 ├── readme.md
 └── img/
     ├── favicon.svg
+    ├── chatroom.webp
     ├── devchat.webp
+    ├── minimal-analysis.webp
     ├── yourown.webp
     ├── portfolio-homepage.png
     ├── Muhammad_Qasim_Akram_Resume.pdf

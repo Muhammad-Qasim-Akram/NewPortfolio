@@ -69,7 +69,7 @@
       <a href="#layers">Layers</a>
       <a href="#chatroom">ChatRoom</a>
       <a href="#speed">Performance</a>
-      <a href="#compare">Compare</a>
+      <a href="#compare">Projects</a>
       <a href="#specs">Specs</a>
     </nav>
     <div class="reach">
@@ -86,7 +86,7 @@
   </div>
   <div class="sheet" id="sheet" hidden>
     <nav aria-label="Sections">
-      <a href="#layers">Layers</a><a href="#highlights">Highlights</a><a href="#chatroom">ChatRoom</a><a href="#speed">Performance</a><a href="#compare">Compare</a><a href="#specs">Specs</a><a href="#contact">Contact</a>
+      <a href="#layers">Layers</a><a href="#highlights">Highlights</a><a href="#chatroom">ChatRoom</a><a href="#speed">Performance</a><a href="#compare">Projects</a><a href="#specs">Specs</a><a href="#contact">Contact</a>
     </nav>
     <div class="sheet-links">
       <a href="https://wa.me/923126442266" target="_blank" rel="noopener">WhatsApp</a>
@@ -204,7 +204,7 @@
       <a class="card" href="case-portfolio.html"><h3>A home page that lost 674 KB.</h3><div><p>From 704 KB of HTML to 30 KB, and the glass look stayed.</p><span class="more">Read the case study</span></div></a>
       <a class="card" href="#chatroom"><h3>A socket that checks who you are first.</h3><div><p>ChatRoom verifies a JWT before it accepts the WebSocket.</p><span class="more">Follow one message</span></div></a>
       <a class="card" href="#speed"><h3>A bug found, reproduced and fixed.</h3><div><p>A hover loop flipped state about 56 times a second. After the fix, zero.</p><span class="more">Try it yourself</span></div></a>
-      <a class="card" href="#compare"><h3>Four projects, side by side.</h3><div><p>Chat, computer vision, an AI assistant and a store.</p><span class="more">Compare them</span></div></a>
+      <a class="card" href="#compare"><h3>Four projects, side by side.</h3><div><p>Chat, computer vision, an AI assistant and a store.</p><span class="more">Explore projects</span></div></a>
     </div>
   </div>
 </section>
@@ -286,20 +286,100 @@
   </div>
 </section>
 
-<!-- COMPARE -->
+<!-- PROJECTS -->
 <section class="sec" id="compare" data-mood="cool">
   <div class="wrap">
-    <h2>Compare projects.</h2>
-    <p class="sub dim left">Four of my projects side by side.</p>
-    <div class="tbl-wrap" tabindex="0" role="region" aria-label="Project comparison table">
-      <table class="tbl">
-        <thead><tr><td></td><th scope="col">ChatRoom</th><th scope="col">EyeSpy</th><th scope="col">DevChat</th><th scope="col">yourOwn Store</th></tr></thead>
-        <tbody>
-          <tr><th scope="row">What it is</th><td>Real-time chat with rooms and reactions</td><td>Computer vision assistant for blind users</td><td>AI assistant for developers</td><td>E-commerce store with a CI/CD pipeline</td></tr>
-          <tr><th scope="row">Built with</th><td>Django Channels, Redis, PostgreSQL, React</td><td>YOLOv8, OpenCV, text to speech</td><td>React, Node, MongoDB, Groq</td><td>React, Vite, Express, SQLite</td></tr>
-          <tr><th scope="row">Read more</th><td><a href="case-chatroom.html">Case study</a> and <a href="https://chatroom-sigma-two.vercel.app/" target="_blank" rel="noopener">live demo</a></td><td><a href="https://github.com/Muhammad-Qasim-Akram" target="_blank" rel="noopener">Code on GitHub</a></td><td><a href="https://dev-chat-seven.vercel.app/" target="_blank" rel="noopener">Live demo</a> and <a href="https://github.com/Muhammad-Qasim-Akram/DevChat" target="_blank" rel="noopener">code</a></td><td><a href="https://yourown-store.azurewebsites.net/" target="_blank" rel="noopener">Live demo</a> and <a href="https://github.com/Muhammad-Qasim-Akram/yourOwn" target="_blank" rel="noopener">code</a></td></tr>
-        </tbody>
-      </table>
+    <div class="project-heading">
+      <div>
+        <p class="project-kicker">Selected work</p>
+        <h2>Projects.</h2>
+      </div>
+      <p class="project-intro">Five builds across real-time systems, computer vision, AI and commerce.</p>
+    </div>
+    <div class="project-grid">
+      <article class="project-card">
+        <div class="project-card-body">
+          <div class="project-card-top">
+            <div class="project-card-meta"><span>01</span><span>Real-time systems</span></div>
+            <img class="project-card-thumb" src="img/chatroom.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+          </div>
+          <h3>ChatRoom</h3>
+          <p>Real-time chat with rooms and reactions.</p>
+          <ul class="project-tags" aria-label="ChatRoom technology stack">
+            <li>Django Channels</li><li>Redis</li><li>PostgreSQL</li><li>React</li>
+          </ul>
+          <div class="project-links">
+            <a href="case-chatroom.html">Case study <span aria-hidden="true">↗</span></a>
+            <a href="https://chatroom-sigma-two.vercel.app/" target="_blank" rel="noopener">Live demo <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+      </article>
+      <article class="project-card">
+        <div class="project-card-body">
+          <div class="project-card-top">
+            <div class="project-card-meta"><span>02</span><span>Computer vision</span></div>
+            <img class="project-card-thumb" src="img/hero/orb.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
+          </div>
+          <h3>EyeSpy</h3>
+          <p>A computer vision assistant for blind and low-vision users.</p>
+          <ul class="project-tags" aria-label="EyeSpy technology stack">
+            <li>YOLOv8</li><li>OpenCV</li><li>Text to speech</li>
+          </ul>
+          <div class="project-links">
+            <a href="https://github.com/Muhammad-Qasim-Akram/EyeSpy" target="_blank" rel="noopener">Code on GitHub <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+      </article>
+      <article class="project-card">
+        <div class="project-card-body">
+          <div class="project-card-top">
+            <div class="project-card-meta"><span>03</span><span>Stock analysis</span></div>
+            <img class="project-card-thumb" src="img/minimal-analysis.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+          </div>
+          <h3>Minimal Analysis</h3>
+          <p>Stock analysis with live market data and generated insights.</p>
+          <ul class="project-tags" aria-label="Minimal Analysis technology stack">
+            <li>Express.js</li><li>Groq</li><li>LLaMA</li>
+          </ul>
+          <div class="project-links">
+            <a href="https://github.com/Muhammad-Qasim-Akram/Stock-Price-Prediction" target="_blank" rel="noopener">Source code <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+      </article>
+      <article class="project-card">
+        <div class="project-card-body">
+          <div class="project-card-top">
+            <div class="project-card-meta"><span>04</span><span>AI tooling</span></div>
+            <img class="project-card-thumb" src="img/devchat.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+          </div>
+          <h3>DevChat</h3>
+          <p>An AI assistant built to help developers work through code.</p>
+          <ul class="project-tags" aria-label="DevChat technology stack">
+            <li>React</li><li>Node.js</li><li>MongoDB</li><li>Groq</li>
+          </ul>
+          <div class="project-links">
+            <a href="https://dev-chat-seven.vercel.app/" target="_blank" rel="noopener">Live demo <span aria-hidden="true">↗</span></a>
+            <a href="https://github.com/Muhammad-Qasim-Akram/DevChat" target="_blank" rel="noopener">Source code <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+      </article>
+      <article class="project-card">
+        <div class="project-card-body">
+          <div class="project-card-top">
+            <div class="project-card-meta"><span>05</span><span>E-commerce</span></div>
+            <img class="project-card-thumb" src="img/yourown.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+          </div>
+          <h3>yourOwn Store</h3>
+          <p>An e-commerce store backed by a CI/CD pipeline.</p>
+          <ul class="project-tags" aria-label="yourOwn Store technology stack">
+            <li>React</li><li>Vite</li><li>Express</li><li>SQLite</li>
+          </ul>
+          <div class="project-links">
+            <a href="https://yourown-store.azurewebsites.net/" target="_blank" rel="noopener">Live demo <span aria-hidden="true">↗</span></a>
+            <a href="https://github.com/Muhammad-Qasim-Akram/yourOwn" target="_blank" rel="noopener">Source code <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+      </article>
     </div>
   </div>
 </section>
@@ -309,13 +389,13 @@
   <div class="wrap">
     <h2>Tech specs.</h2>
     <dl class="specs">
-      <div><dt>Languages</dt><dd>Python, JavaScript, C#</dd></div>
-      <div><dt>Backend</dt><dd>Django and Channels, Node and Express, ASP.NET</dd></div>
-      <div><dt>Data</dt><dd>PostgreSQL, MongoDB, SQLite, Redis</dd></div>
-      <div><dt>AI and vision</dt><dd>YOLOv8, OpenCV, Groq API</dd></div>
-      <div><dt>Frontend</dt><dd>React, Vite, Flutter</dd></div>
-      <div><dt>Hosting</dt><dd>Vercel, Railway, Netlify</dd></div>
-      <div><dt>Education</dt><dd>BS Computer Science, Islamia University of Bahawalpur</dd></div>
+      <div class="spec-card"><dt>Languages</dt><dd>Python, JavaScript, TypeScript, C#</dd></div>
+      <div class="spec-card"><dt>Frontend</dt><dd>Reactjs, Vite, Nextjs</dd></div>
+      <div class="spec-card"><dt>Backend</dt><dd>Django and Channels, Node and Express, ASP.NET</dd></div>
+      <div class="spec-card"><dt>Data</dt><dd>PostgreSQL, MongoDB, SQLite, Redis, SQLServer</dd></div>
+      <div class="spec-card"><dt>AI and vision</dt><dd>YOLOv8, OpenCV, RAG</dd></div>
+      <div class="spec-card"><dt>Hosting</dt><dd>Vercel, Railway, Netlify, Azure, CI/CD</dd></div>
+      <div class="spec-card"><dt>Education</dt><dd>BS Computer Science, Islamia University of Bahawalpur</dd></div>
     </dl>
   </div>
 </section>
@@ -335,7 +415,6 @@
         <p class="contact-kicker">Have a project in mind?</p>
         <h3>Tell me what you're building.</h3>
         <p>Send a note about an opportunity, collaboration, or idea. I’ll get back to you by email.</p>
-        <a class="contact-email" href="mailto:qasimakram46@hotmail.com">qasimakram46@hotmail.com</a>
       </div>
       <form class="contact-form" id="contactForm">
         <div class="contact-field">
@@ -363,7 +442,7 @@
       <li><a href="https://github.com/Muhammad-Qasim-Akram" target="_blank" rel="noopener">GitHub</a></li>
       <li><a href="mailto:qasimakram46@hotmail.com">Email</a></li>
     </ul>
-    <p class="foot">Qasim Akram. Bahawalpur, Pakistan. BS Computer Science, Islamia University of Bahawalpur.</p>
+    <p class="foot">Muhammad Qasim Akram. Bahawalpur, Pakistan.</p>
   </div>
 </section>
 

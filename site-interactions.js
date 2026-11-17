@@ -395,7 +395,7 @@
       });
       b.addEventListener('pointerleave', function () { b.style.transform = ''; });
     });
-    $$('.card').forEach(function (c) {
+    $$('.card, .project-card, .spec-card').forEach(function (c) {
       c.addEventListener('pointermove', function (e) {
         var r = c.getBoundingClientRect(); c.style.setProperty('--mx', (e.clientX - r.left) + 'px'); c.style.setProperty('--my', (e.clientY - r.top) + 'px');
       });
@@ -407,7 +407,7 @@
     var groups = [
       ['.marq', 'up'],
       ['.sec h2', 'up'], ['.sub', 'up'], ['.card', 'scale'], ['.cols>div', 'up'], ['.sec p>.btn', 'up'],
-      ['.lab-view', 'left'], ['.lab-panel', 'right'], ['.tbl-wrap', 'up'], ['.specs>div', 'left'],
+      ['.lab-view', 'left'], ['.lab-panel', 'right'], ['.project-card', 'scale'], ['.spec-card', 'left'],
       ['.case-hero > *:not(h1)', 'up'], ['.chap', 'up'], ['.facts li', 'scale'], ['.xlinks a', 'up'], ['.vis', 'scale'], ['.row.c a', 'up'], ['.social li', 'up'], ['.foot', 'up']
     ];
     var els = [];
